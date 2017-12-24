@@ -1,0 +1,71 @@
+// ---------------------------------------------------------------
+//  VARIABLES
+// ---------------------------------------------------------------
+
+//-- Colors codes (http://chir.ag/projects/name-that-color/#6195ED)
+
+$black:                     #000000;
+$grey90:                    #212529;
+$grey80:                    #343a40;
+$grey70:                    #495057;
+$grey60:                    #868e96;
+$grey50:                    #adb5bd;
+$grey40:                    #ced4da;
+$grey30:                    #dee2e6;
+$grey20:                    #e9ecef;
+$grey10:                    #f8f9fa;
+$white:                     #ffffff;
+
+$blue:                      #007bff;
+$indigo:                    #6610f2;
+$purple:                    #6f42c1;
+$pink:                      #e83e8c;
+$red:                       #dc3545;
+$orange:                    #fd7e14;
+$yellow:                    #ffc107;
+$green:                     #28a745;
+$teal:                      #20c997;
+$cyan:                      #17a2b8;
+
+//-- Colors theme
+$col-primary:             $blue;
+$col-secondary:           $green;
+
+$col-alert:               $red;
+$col-warning:             $yellow;
+$col-success:             $green;
+$col-info:                $cyan;
+$col-light:               $grey10;
+$col-dark:                $grey90;
+
+//-- Spacing
+$h-space:                   1rem;
+$v-space:                   1rem;
+
+//== Typography
+$ff-body:                   'Source Sans Pro', sans-serif;
+$ff-headings:               'Montserrat', sans-serif;
+
+$fs:                        1em;
+$lh:                        1.5em;
+
+//== Borders
+$border-hairline:           1px;
+$border-thin:               2px;
+$border-thick:              3px;
+$border-radius:             2px;
+
+//== Breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+//== Transition
+$duration-fast:             150ms;
+$duration-medium:           300ms;
+$duration-normal:           450ms;
+$duration-slow:             750ms;

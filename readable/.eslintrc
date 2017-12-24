@@ -1,0 +1,32 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier", "jsx-a11y"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/sort-comp": [0],
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["to", "hrefLeft", "hrefRight"],
+        "aspects": ["noHref", "invalidHref", "preferButton"]
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".storybook/**",
+          "src/stories/**",
+          "src/tests/Storyshots.test.js"
+        ]
+      }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "jest": true,
+    "es6": true,
+    "node": true
+  }
+}

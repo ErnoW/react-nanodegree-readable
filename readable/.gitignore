@@ -6,8 +6,14 @@
 # testing
 /coverage
 
+# build products
+src/**/*.css
+
 # production
 /build
+
+# snapshots
+src/**/*.js.snap
 
 # misc
 .DS_Store
@@ -19,3 +25,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# personal project files
+TODO.txt
