@@ -1,5 +1,6 @@
 {
-  "extends": ["airbnb", "prettier"],
+  "extends": ["airbnb", "prettier", "eslint:recommended",
+    "plugin:react/recommended"],
   "plugins": ["prettier", "jsx-a11y"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
@@ -21,7 +22,8 @@
           "src/tests/Storyshots.test.js"
         ]
       }
-    ]
+    ],
+    "no-underscore-dangle": 0 
   },
   "env": {
     "browser": true,
