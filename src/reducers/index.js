@@ -6,27 +6,39 @@ import {
   RECEIVE_POSTS,
 } from '../actions/index'
 
-const categories = (state = { selected: '', categories: [] }, action) => {
+const selectedCategory = (state = '', action) => {
   switch (action.type) {
     case SELECT_CATEGORY:
-      return {
-        ...state,
-        selected: action.category, // TODO: check if category exists?
-      }
-    case RECEIVE_CATEGORIES:
-      return {
-        ...state,
-        categories: [...action.payload.categories],
-      }
+      return action.category
     default:
       return state
   }
 }
 
-const currentPosts = (state = [], action) => {
+//TODO: can I do this better with normalisr??
+const categories = (state = {}, action) => {
   switch (action.type) {
+    case RECEIVE_CATEGORIES:
+      return {
+        ...state,
+        ...Object.assign(
+          {},
+          ...action.payload.categories.map((item) => ({
+            [item.name]: {
+              ...state[item.name],
+              ...item,
+            },
+          })),
+        ),
+      }
     case RECEIVE_POSTS:
-      return [...action.payload.result]
+      return {
+        ...state,
+        [action.category]: {
+          ...state[action.category],
+          posts: action.payload.result,
+        },
+      }
     default:
       return state
   }
@@ -98,7 +110,7 @@ const postsByCategory = (state = {}, action) => {
 
 const rootReducer = combineReducers({
   entities,
-  currentPosts,
+  selectedCategory,
   categories,
 })
 
