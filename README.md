@@ -6,10 +6,16 @@ at Udacity.
 
 ## Quick start
 
+### Run the application
+
 * Clone this repo
 * Install all project dependencies with `npm install`
 * Start the development server with `npm start`
 * The app will run on `localhost:3000`
+
+### Run the server
+
+* Clone and run the [local server](https://github.com/udacity/reactnd-project-readable-starter)
 
 ## Test
 
