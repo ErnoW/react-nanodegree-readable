@@ -1,13 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import thunkMiddleware from 'redux-thunk'
-import { createStore, applyMiddleware, compose } from 'redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+
+import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router-dom'
+import {
+  ConnectedRouter as Router,
+  routerReducer,
+  routerMiddleware,
+} from 'react-router-redux'
+
 import { Provider } from 'react-redux'
-import rootReducer from './reducers'
+import reducers from './reducers'
+
 import './index.css'
 import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
+
+const history = createHistory()
+const rrrMiddleware = routerMiddleware(history)
 
 const logger = (store) => (next) => (action) => {
   console.group(action.type) // eslint-disable-line
@@ -21,14 +34,17 @@ const logger = (store) => (next) => (action) => {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunkMiddleware, logger)),
+  combineReducers({
+    ...reducers,
+    router: routerReducer,
+  }),
+  composeEnhancers(applyMiddleware(thunkMiddleware, rrrMiddleware, logger)),
 )
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <Route path="/:filter?" component={App} />
+    <Router history={history}>
+      <Route path="/" component={App} />
     </Router>
   </Provider>,
   document.getElementById('root'),

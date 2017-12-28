@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import merge from 'lodash/merge'
 import {
   SELECT_CATEGORY,
@@ -108,10 +107,10 @@ const postsByCategory = (state = {}, action) => {
 }
 */
 
-const rootReducer = combineReducers({
+const reducers = {
   entities,
   selectedCategory,
   categories,
-})
+}
 
-export default rootReducer
+export default reducers
