@@ -18,18 +18,17 @@ const selectedCategory = (state = '', action) => {
 const categories = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_CATEGORIES:
-      return {
-        ...state,
-        ...Object.assign(
-          {},
-          ...action.payload.categories.map((item) => ({
-            [item.name]: {
-              ...state[item.name],
-              ...item,
-            },
-          })),
-        ),
-      }
+      return Object.assign(
+        {},
+        ...action.payload.categories.map((item) => ({ [item.name]: item })),
+      )
+    default:
+      return state
+  }
+}
+
+const filteredPosts = (state = {}, action) => {
+  switch (action.type) {
     case RECEIVE_POSTS:
       return {
         ...state,
@@ -111,6 +110,7 @@ const reducers = {
   entities,
   selectedCategory,
   categories,
+  filteredPosts,
 }
 
 export default reducers
