@@ -14,3 +14,13 @@ export const PostTypeDefault = {
   commentCount: 0,
   voteScore: 0,
 }
+
+export const CategoryType = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+})
+
+export const CategoryTypeDefault = {
+  name: '',
+  path: '/',
+}
