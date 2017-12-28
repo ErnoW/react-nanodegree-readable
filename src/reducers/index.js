@@ -15,13 +15,10 @@ const selectedCategory = (state = '', action) => {
 }
 
 //TODO: can I do this better with normalisr??
-const categories = (state = {}, action) => {
+const categories = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_CATEGORIES:
-      return Object.assign(
-        {},
-        ...action.payload.categories.map((item) => ({ [item.name]: item })),
-      )
+      return action.payload.categories
     default:
       return state
   }
@@ -32,10 +29,7 @@ const filteredPosts = (state = {}, action) => {
     case RECEIVE_POSTS:
       return {
         ...state,
-        [action.category]: {
-          ...state[action.category],
-          posts: action.payload.result,
-        },
+        [action.category]: [...action.payload.result],
       }
     default:
       return state
