@@ -4,9 +4,23 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { selectCategory, fetchPosts, fetchCategories } from '../actions'
 import PostSnippet from './PostSnippet'
+import { PostType } from '../utils/PropTypes'
 
 class App extends Component {
   // eslint-disable-line
+  static propTypes = {
+    posts: PropTypes.objectOf(PostType),
+    currentPosts: PropTypes.arrayOf(PropTypes.string),
+    selectCategory: PropTypes.func.isRequired,
+    fetchPosts: PropTypes.func.isRequired,
+    fetchCategories: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    posts: [],
+    currentPosts: [],
+  }
+
   render() {
     const categories = [
       {
@@ -53,29 +67,6 @@ class App extends Component {
       </div>
     )
   }
-}
-
-App.defaultProps = {
-  posts: [],
-  currentPosts: [],
-  selectCategory: '',
-}
-
-App.propTypes = {
-  posts: PropTypes.arrayOf({
-    post: PropTypes.shape({
-      author: PropTypes.string,
-      title: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
-      commentCount: PropTypes.number,
-      voteScore: PropTypes.number,
-      timestamp: PropTypes.number.isRequired,
-    }),
-  }),
-  currentPosts: PropTypes.arrayOf(PropTypes.string),
-  selectCategory: PropTypes.string,
-  fetchPosts: PropTypes.func.isRequired,
-  fetchCategories: PropTypes.func.isRequired,
 }
 
 function mapStatetoProps(state) {

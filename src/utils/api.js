@@ -28,18 +28,24 @@ export const schemas = {
 }
 
 export const apiCall = (path) => {
-  console.group('apiCall') // eslint-disable-line
-  console.log('fetching from', `${API_ROOT}/${path}`) // eslint-disable-line
+  const apiLog = {}
+  apiLog.root = `${API_ROOT}/${path}` //TEST
+
   return fetch(`${API_ROOT}/${path}`, {
     headers,
   })
     .then((response) => {
-      console.log('response', response) // eslint-disable-line
+      apiLog.response = response //TEST
       return response.json()
     })
     .then((json) => {
-      console.log('json', json) // eslint-disable-line
-      console.groupEnd('apiCall') // eslint-disable-line
+      apiLog.json = json //TEST
+      console.groupCollapsed(`Api Call to ${apiLog.root}`) // eslint-disable-line
+      console.log('root', apiLog.root) // eslint-disable-line
+      console.log('response', apiLog.response) // eslint-disable-line
+      console.log('json', apiLog.json) // eslint-disable-line
+      console.groupEnd(`Api Call to ${apiLog.root}`) // eslint-disable-line
+
       return json
     })
 }
