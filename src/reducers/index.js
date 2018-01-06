@@ -1,18 +1,5 @@
 import merge from 'lodash/merge'
-import {
-  SELECT_CATEGORY,
-  RECEIVE_CATEGORIES,
-  RECEIVE_POSTS,
-} from '../actions/index'
-
-const selectedCategory = (state = '', action) => {
-  switch (action.type) {
-    case SELECT_CATEGORY:
-      return action.category
-    default:
-      return state
-  }
-}
+import { RECEIVE_CATEGORIES, RECEIVE_POSTS } from '../actions/index'
 
 //TODO: can I do this better with normalisr??
 const categories = (state = [], action) => {
@@ -44,65 +31,8 @@ const entities = (state = { posts: {} }, action) => {
   return state
 }
 
-// Updates error message to notify about the failed fetches.
-// const errorMessage = (state = null, action) => {
-//   const { type, error } = action
-
-//   if (type === ActionTypes.RESET_ERROR_MESSAGE) {
-//     return null
-//   } else if (error) {
-//     return error
-//   }
-
-//   return state
-// }
-
-/*
-function posts(
-  state = {
-    isFetching: false,
-    didInvalidate: false,
-    posts: [],
-  },
-  action,
-) {
-  switch (action.type) {
-    case REQUEST_POSTS:
-      return {
-        ...state,
-        isFetching: true,
-      }
-    case RECEIVE_POSTS:
-      return merge(
-        {},
-        state,
-        { isFetching: false, didInvalidate: false },
-        action.response.entities,
-      )
-    default:
-      return state
-  }
-}
-*/
-
-/*
-const postsByCategory = (state = {}, action) => {
-  switch (action.type) {
-    case RECEIVE_POSTS:
-    case REQUEST_POSTS:
-      return {
-        ...state
-        //[action.category]: posts(state[action.category], action),
-      }
-    default:
-      return state
-  }
-}
-*/
-
 const reducers = {
   entities,
-  selectedCategory,
   categories,
   filteredPosts,
 }
