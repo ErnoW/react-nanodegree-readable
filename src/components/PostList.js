@@ -43,11 +43,12 @@ class PostList extends Component {
       filteredPosts = fetchedPosts[category]
     }
 
+    //TODO: better error and loading handling
     return (
       <div>
         {hasError && <p>Error</p>}
         {isFetching && filteredPosts.length === 0 && <p>Loading...</p>}
-        {!isFetching && filteredPosts.length === 0 && <p>Empty</p>}
+        {!isFetching && !hasError && filteredPosts.length === 0 && <p>Empty</p>}
         {filteredPosts.length > 0 && (
           <ul>
             {filteredPosts.map((postId) => (

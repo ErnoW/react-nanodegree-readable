@@ -5,11 +5,6 @@ const headers = { Authorization: 'RANDOM_TOKEN' }
 
 // Define schemes by using normalizr
 // see: https://github.com/paularmstrong/normalizr
-// const categorySchema = new schema.Entity(
-//   'categories', {}, {
-//     idAttribute: 'name',
-//   },
-// )
 
 const postSchema = new schema.Entity(
   'posts',
@@ -19,12 +14,19 @@ const postSchema = new schema.Entity(
   },
 )
 
-const postListSchema = [postSchema]
-// const categoryListSchema = [categorySchema];
+const commentSchema = new schema.Entity(
+  'comments',
+  {},
+  {
+    idAttribute: 'id',
+  },
+)
 
 export const schemas = {
-  postList: postListSchema,
-  // categoryList: categoryListSchema,
+  post: postSchema,
+  postList: [postSchema],
+  comment: commentSchema,
+  commentList: [commentSchema],
 }
 
 export const apiCall = (path) => {
@@ -34,9 +36,18 @@ export const apiCall = (path) => {
   return fetch(`${API_ROOT}/${path}`, {
     headers,
   })
-    .then((r) => new Promise((resolve) => setTimeout(() => resolve(r), 1000))) //TESTING PUTPOSE ONLY
+    .then(
+      (r) =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve(r), 1000 + Math.random() * 500),
+        ),
+    ) //TESTING PUTPOSE ONLY
     .then((response) => {
       apiLog.response = response //TEST
+      if (!response.ok) {
+        throw Error(response.statusText)
+        console.groupEnd(`Api Call to ${apiLog.root}`) // eslint-disable-line
+      }
       return response.json()
     })
     .then((json) => {
@@ -52,6 +63,7 @@ export const apiCall = (path) => {
 }
 
 export const getCategories = () => apiCall('categories') // categoryListSchema
-export const getCategorizedPosts = (category) =>
-  apiCall(`${category}/posts`, postListSchema)
-export const getAllPosts = () => apiCall('posts', postListSchema)
+export const getCategorizedPosts = (category) => apiCall(`${category}/posts`)
+export const getAllPosts = () => apiCall('posts')
+export const getPost = (id) => apiCall(`posts/${id}`)
+export const getComments = (id) => apiCall(`posts/${id}/comments`)

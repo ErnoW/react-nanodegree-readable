@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import { PostType, PostTypeDefault } from '../utils/PropTypes'
+import { Link } from 'react-router-dom'
+import { PostType } from '../utils/PropTypes'
 
 class PostSnippet extends Component {
-  static defaultProps = {
-    post: PostTypeDefault,
+  static propTypes = {
+    post: PostType.isRequired,
   }
 
-  static propTypes = {
-    post: PostType,
-  }
   render() {
     const {
+      id,
       author,
       title,
       body,
@@ -18,9 +17,12 @@ class PostSnippet extends Component {
       voteScore,
       timestamp,
     } = this.props.post
+
     return (
       <div>
-        <h2>{title}</h2>
+        <Link to={`/post/${id}`}>
+          <h2>{title}</h2>
+        </Link>
         <p>{body}</p>
         Author: {author} | Comments: {commentCount} | Votes: {voteScore} | Date:{' '}
         {timestamp}

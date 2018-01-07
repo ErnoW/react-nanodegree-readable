@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom'
 import { fetchCategories } from '../actions'
 import Navigation from './Navigation'
 import PostList from './PostList'
+import Post from './Post'
 
 class App extends Component {
   static propTypes = {
@@ -16,17 +17,24 @@ class App extends Component {
     this.props.fetchCategories()
   }
 
+  //TODO: improve loading state to include whole app
   render() {
-    return (
-      <div className="App">
-        {this.props.initialLoading === true && <p>Loading...</p>}
-        <Navigation />
-        <hr />
-        {this.props.initialLoading === false && (
+    if (this.props.initialLoading === true) {
+      return (
+        <div className="App">
+          <p>Loading...</p>
+        </div>
+      )
+    } else {
+      return (
+        <div className="App">
+          <Navigation />
+          <hr />
           <Route path="/category/:category" component={PostList} />
-        )}
-      </div>
-    )
+          <Route path="/post/:id" component={Post} />
+        </div>
+      )
+    }
   }
 }
 
