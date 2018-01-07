@@ -1,5 +1,10 @@
 import merge from 'lodash/merge'
-import { RECEIVE_CATEGORIES, RECEIVE_POSTS } from '../actions/index'
+import {
+  RECEIVE_CATEGORIES,
+  REQUEST_POSTS,
+  ERROR_POSTS,
+  RECEIVE_POSTS,
+} from '../actions/index'
 
 //TODO: can I do this better with normalisr??
 const categories = (state = [], action) => {
@@ -11,12 +16,45 @@ const categories = (state = [], action) => {
   }
 }
 
-const filteredPosts = (state = {}, action) => {
+const initialLoading = (state = true, action) => {
   switch (action.type) {
+    case RECEIVE_CATEGORIES:
+      return false
+    default:
+      return state
+  }
+}
+
+const fetchedPosts = (
+  state = {
+    isFetching: false,
+    hasError: false,
+    posts: {},
+  },
+  action,
+) => {
+  switch (action.type) {
+    case REQUEST_POSTS:
+      return {
+        ...state,
+        isFetching: true,
+        hasError: false,
+      }
+    case ERROR_POSTS:
+      return {
+        ...state,
+        isFetching: false,
+        hasError: true,
+      }
     case RECEIVE_POSTS:
       return {
         ...state,
-        [action.category]: [...action.payload.result],
+        isFetching: false,
+        hasError: false,
+        posts: {
+          ...state.posts,
+          [action.category]: [...action.payload.result],
+        },
       }
     default:
       return state
@@ -34,7 +72,8 @@ const entities = (state = { posts: {} }, action) => {
 const reducers = {
   entities,
   categories,
-  filteredPosts,
+  fetchedPosts,
+  initialLoading,
 }
 
 export default reducers

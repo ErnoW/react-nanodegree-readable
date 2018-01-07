@@ -34,6 +34,7 @@ export const apiCall = (path) => {
   return fetch(`${API_ROOT}/${path}`, {
     headers,
   })
+    .then((r) => new Promise((resolve) => setTimeout(() => resolve(r), 1000))) //TESTING PUTPOSE ONLY
     .then((response) => {
       apiLog.response = response //TEST
       return response.json()

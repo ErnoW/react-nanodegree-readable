@@ -9,28 +9,29 @@ import PostList from './PostList'
 class App extends Component {
   static propTypes = {
     fetchCategories: PropTypes.func.isRequired,
+    initialLoading: PropTypes.bool.isRequired,
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchCategories()
   }
 
   render() {
     return (
       <div className="App">
+        {this.props.initialLoading === true && <p>Loading...</p>}
         <Navigation />
         <hr />
-        <Route path="/category/:category" component={PostList} />
+        {this.props.initialLoading === false && (
+          <Route path="/category/:category" component={PostList} />
+        )}
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  posts: state.entities.posts,
-  filteredPosts: state.filteredPosts,
-  categories: state.categories,
-  selectedCategory: state.selectedCategory,
+  initialLoading: state.initialLoading,
 })
 
 const mapDispatchToProps = (dispatch) => ({

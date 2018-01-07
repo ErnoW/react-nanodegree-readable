@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { PostType, PostTypeDefault } from '../utils/PropTypes'
 
 class PostSnippet extends Component {
-  // eslint-disable-line
   static defaultProps = {
     post: PostTypeDefault,
   }

@@ -2,6 +2,7 @@ import { normalize } from 'normalizr'
 import * as api from '../utils/api'
 
 export const REQUEST_POSTS = 'REQUEST_POSTS'
+export const ERROR_POSTS = 'ERROR_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const SELECT_CATEGORY = 'SELECT_CATEGORY'
 export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
@@ -41,17 +42,42 @@ export const requestPosts = (category) => ({
   category,
 })
 
+export const errorPosts = (category) => ({
+  type: ERROR_POSTS,
+  category,
+})
+
 export const receivePosts = (category, payload) => ({
   type: RECEIVE_POSTS,
   category,
   payload,
 })
 
-export const fetchPosts = (category) => (dispatch) => {
+export const fetchPosts = (category) => (dispatch, getState) => {
+  const state = getState()
+
+  //Do not fetch if no categories are feched/exist
+  if (state.categories.length === 0) {
+    dispatch(errorPosts(category))
+    return console.error('no categories defined', state.categories) // eslint-disable-line
+  }
+
+  //Do not fetch if the category is not valid
+  if (state.categories.filter((cat) => cat.name === category).length === 0) {
+    dispatch(errorPosts(category))
+    return console.error('no valid category', getState().categories) // eslint-disable-line
+  }
+
   dispatch(requestPosts(category))
-  return api.getCategorizedPosts(category).then((payload) => {
-    dispatch(receivePosts(category, normalize(payload, api.schemas.postList)))
-  })
+
+  return api.getCategorizedPosts(category).then(
+    (payload) => {
+      dispatch(receivePosts(category, normalize(payload, api.schemas.postList)))
+    },
+    () => {
+      dispatch(errorPosts(category))
+    },
+  )
 }
 
 export const fetchCategories = () => (dispatch) => {
@@ -60,62 +86,3 @@ export const fetchCategories = () => (dispatch) => {
     dispatch(receiveCategories(payload))
   })
 }
-
-/*
-
-export function selectCategory(category) {
-  return {
-    type: SELECT_CATEGORY,
-    category,
-  }
-}
-
-export const requestPosts = (category) => ({
-  type: REQUEST_POSTS,
-  category,
-})
-
-export const receivePosts = (category, posts) => ({
-  type: RECEIVE_POSTS,
-  category,
-  posts,
-})
-// 
-// export function fetchPosts = (category) =>{
-//   return function (dispatch) {
-//     dispatch(requestPosts(category))
-//     return fetch(`https://www.reddit.com/r/${category}.json`)
-//       .then(
-//         response => response.json(),
-//         error => console.log('An error occurred.', error)
-//       )
-//       .then(json =>
-//         dispatch(receivePosts(category, json))
-//       )
-//   }
-// }
-// 
-export const fetchPosts = (category) => (dispatch) =>
-  api
-    .getCategoryPosts(category)
-    .then((posts) => dispatch(receivePosts(category, posts)))
-
-
-    
-*/
-
-/*
-Actions:
-selectCategory
-requestAllPosts
-*/
-
-/*
-export const receivePosts = (subreddit, json) => ({
-  return ){
-    type: RECEIVE_POSTS,
-    category,
-    posts: json.data.children.map(child => child.data),
-    receivedAt: Date.now()
-  })
-  */

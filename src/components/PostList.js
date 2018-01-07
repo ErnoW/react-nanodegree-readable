@@ -8,8 +8,10 @@ import { fetchPosts } from '../actions'
 class PostList extends Component {
   static propTypes = {
     posts: PropTypes.objectOf(PostType),
-    filteredPosts: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+    fetchedPosts: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
     fetchPosts: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    hasError: PropTypes.bool.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
         category: PropTypes.string,
@@ -18,7 +20,7 @@ class PostList extends Component {
   }
 
   static defaultProps = {
-    filteredPosts: [],
+    fetchedPosts: [],
     posts: [],
   }
 
@@ -33,31 +35,38 @@ class PostList extends Component {
   }
 
   render() {
-    let postList = null
-    if (
-      this.props.match.params.category &&
-      this.props.filteredPosts[this.props.match.params.category]
-    ) {
-      postList = (
-        <ul>
-          {this.props.filteredPosts[this.props.match.params.category].map(
-            (postId) => (
-              <li key={postId}>
-                <PostSnippet post={this.props.posts[postId]} />
-              </li>
-            ),
-          )}
-        </ul>
-      )
+    const { posts, fetchedPosts, isFetching, hasError } = this.props
+    const category = this.props.match.params.category
+
+    let filteredPosts = []
+    if (fetchedPosts[category]) {
+      filteredPosts = fetchedPosts[category]
     }
 
-    return <div>{postList}</div>
+    return (
+      <div>
+        {hasError && <p>Error</p>}
+        {isFetching && filteredPosts.length === 0 && <p>Loading...</p>}
+        {!isFetching && filteredPosts.length === 0 && <p>Empty</p>}
+        {filteredPosts.length > 0 && (
+          <ul>
+            {filteredPosts.map((postId) => (
+              <li key={postId}>
+                <PostSnippet post={posts[postId]} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    )
   }
 }
 
 const mapStatetoProps = (state) => ({
   posts: state.entities.posts,
-  filteredPosts: state.filteredPosts,
+  fetchedPosts: state.fetchedPosts.posts,
+  isFetching: state.fetchedPosts.isFetching,
+  hasError: state.fetchedPosts.hasError,
 })
 
 const mapDispatchToProps = (dispatch) => ({
