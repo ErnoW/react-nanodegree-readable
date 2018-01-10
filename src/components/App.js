@@ -6,6 +6,7 @@ import { fetchCategories } from '../actions'
 import Navigation from './Navigation'
 import PostList from './PostList'
 import Post from './Post'
+import NewPost from './NewPost'
 
 class App extends Component {
   static propTypes = {
@@ -32,6 +33,7 @@ class App extends Component {
           <hr />
           <Route path="/category/:category" component={PostList} />
           <Route path="/post/:id" component={Post} />
+          <Route path="/newpost" component={NewPost} />
         </div>
       )
     }

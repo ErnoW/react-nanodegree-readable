@@ -29,7 +29,7 @@ export const schemas = {
   commentList: [commentSchema],
 }
 
-export const apiCall = (path) => {
+const apiCall = (path) => {
   const apiLog = {}
   apiLog.root = `${API_ROOT}/${path}` //TEST
 
@@ -41,7 +41,7 @@ export const apiCall = (path) => {
         new Promise((resolve) =>
           setTimeout(() => resolve(r), 1000 + Math.random() * 500),
         ),
-    ) //TESTING PUTPOSE ONLY
+    ) //TESTING PURPOSE ONLY
     .then((response) => {
       apiLog.response = response //TEST
       if (!response.ok) {
@@ -62,8 +62,47 @@ export const apiCall = (path) => {
     })
 }
 
+const apiPostPost = (post) => {
+  return fetch(`${API_ROOT}/posts`, {
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(post),
+  })
+    .then(
+      (r) =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve(r), 1000 + Math.random() * 500),
+        ),
+    ) //TESTING PURPOSE ONLY
+    .then((response) => response.json())
+}
+
+const apiPostVote = (id, vote) => {
+  return fetch(`${API_ROOT}/posts/${id}`, {
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify({ option: vote }),
+  })
+    .then(
+      (r) =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve(r), 1000 + Math.random() * 500),
+        ),
+    ) //TESTING PURPOSE ONLY
+    .then((response) => response.json())
+}
+
 export const getCategories = () => apiCall('categories') // categoryListSchema
 export const getCategorizedPosts = (category) => apiCall(`${category}/posts`)
 export const getAllPosts = () => apiCall('posts')
 export const getPost = (id) => apiCall(`posts/${id}`)
 export const getComments = (id) => apiCall(`posts/${id}/comments`)
+
+export const postPost = (post) => apiPostPost(post)
+export const postVote = (id, vote) => apiPostVote(id, vote)

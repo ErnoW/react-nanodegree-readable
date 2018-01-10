@@ -14,31 +14,31 @@ export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
 export const ERROR_COMMENTS = 'ERROR_COMMENTS'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 
-export const selectCategory = (category) => ({
-  type: SELECT_CATEGORY,
-  category,
-})
+export const START_POST_POST = 'START_POST_POST'
+export const FINISH_POST_POST = 'FINISH_POST_POST'
+export const START_POST_VOTE = 'START_POST_VOTE'
+export const FINISH_POST_VOTE = 'FINISH_POST_VOTE'
 
-export const requestCategories = {
+const requestCategories = {
   type: REQUEST_CATEGORIES,
 }
 
-export const receiveCategories = (payload) => ({
+const receiveCategories = (payload) => ({
   type: RECEIVE_CATEGORIES,
   payload,
 })
 
-export const requestPosts = (category) => ({
+const requestPosts = (category) => ({
   type: REQUEST_POSTS,
   category,
 })
 
-export const errorPosts = (category) => ({
+const errorPosts = (category) => ({
   type: ERROR_POSTS,
   category,
 })
 
-export const receivePosts = (category, payload) => ({
+const receivePosts = (category, payload) => ({
   type: RECEIVE_POSTS,
   category,
   payload,
@@ -78,17 +78,17 @@ export const fetchCategories = () => (dispatch) => {
   })
 }
 
-export const requestPost = (id) => ({
+const requestPost = (id) => ({
   type: REQUEST_POST,
   id,
 })
 
-export const errorPost = (id) => ({
+const errorPost = (id) => ({
   type: ERROR_POST,
   id,
 })
 
-export const receivePost = (id, payload) => ({
+const receivePost = (id, payload) => ({
   type: RECEIVE_POST,
   id,
   payload,
@@ -115,17 +115,17 @@ export const fetchPost = (id) => (dispatch, getState) => {
     })
 }
 
-export const requestComments = (id) => ({
+const requestComments = (id) => ({
   type: REQUEST_COMMENTS,
   id,
 })
 
-export const errorComments = (id) => ({
+const errorComments = (id) => ({
   type: ERROR_COMMENTS,
   id,
 })
 
-export const receiveComments = (id, payload) => ({
+const receiveComments = (id, payload) => ({
   type: RECEIVE_COMMENTS,
   id,
   payload,
@@ -141,4 +141,41 @@ export const fetchComments = (id) => (dispatch) => {
     .catch(() => {
       dispatch(errorComments(id))
     })
+}
+
+const startPostPost = (post) => ({
+  type: START_POST_POST,
+  post,
+})
+
+const finishPostPost = (payload) => ({
+  type: FINISH_POST_POST,
+  payload,
+})
+
+export const createPost = (post) => (dispatch) => {
+  dispatch(startPostPost(post))
+  return api.postPost(post).then((payload) => {
+    dispatch(finishPostPost(normalize(payload, api.schemas.post)))
+    return payload
+  })
+}
+
+const startPostVote = (id, vote) => ({
+  type: START_POST_VOTE,
+  id,
+  vote,
+})
+
+const finishPostVote = (payload) => ({
+  type: FINISH_POST_VOTE,
+  payload,
+})
+
+export const addVote = (id, vote) => (dispatch) => {
+  dispatch(startPostVote(id, vote))
+  return api.postVote(id, vote).then((payload) => {
+    dispatch(finishPostVote(normalize(payload, api.schemas.post)))
+    return payload
+  })
 }
