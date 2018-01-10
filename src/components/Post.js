@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { PostType, CommentType } from '../utils/PropTypes'
-import { fetchPost } from '../actions'
+import { fetchPost, addVote } from '../actions'
+import Vote from './Vote'
 
 class Post extends Component {
   static defaultProps = {}
@@ -16,6 +17,7 @@ class Post extends Component {
     isFetchingComments: PropTypes.bool.isRequired,
     hasErrorComments: PropTypes.bool.isRequired,
     fetchPost: PropTypes.func.isRequired,
+    addVote: PropTypes.func.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
         id: PropTypes.string,
@@ -25,6 +27,11 @@ class Post extends Component {
 
   componentDidMount() {
     this.props.fetchPost(this.props.match.params.id)
+  }
+
+  castVote = () => {
+    const vote = 'upVote' //TODO: swithc between upvote and downvote (and remember state)
+    this.props.addVote(this.props.match.params.id, vote)
   }
 
   render() {
@@ -82,6 +89,7 @@ class Post extends Component {
       return (
         <div>
           {post}
+          <Vote onClick={this.castVote} />
           <h3>Comments</h3>
           {hasErrorComments && <p>Error on loading comments</p>}
           {isFetchingComments && <p>Loading Comments...</p>}
@@ -94,6 +102,7 @@ class Post extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPost: (id) => dispatch(fetchPost(id)),
+  addVote: (id, vote) => dispatch(addVote(id, vote)),
 })
 
 const mapStateToProps = (state) => ({
