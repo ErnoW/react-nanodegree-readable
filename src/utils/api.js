@@ -2,6 +2,7 @@ import { schema } from 'normalizr'
 
 const API_ROOT = 'http://localhost:3001'
 const headers = { Authorization: 'RANDOM_TOKEN' }
+const TEST_TIMEOUT = 0
 
 // Define schemes by using normalizr
 // see: https://github.com/paularmstrong/normalizr
@@ -38,9 +39,7 @@ const apiCall = (path) => {
   })
     .then(
       (r) =>
-        new Promise((resolve) =>
-          setTimeout(() => resolve(r), 1000 + Math.random() * 500),
-        ),
+        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
     ) //TESTING PURPOSE ONLY
     .then((response) => {
       apiLog.response = response //TEST
@@ -73,9 +72,7 @@ const apiPostPost = (post) => {
   })
     .then(
       (r) =>
-        new Promise((resolve) =>
-          setTimeout(() => resolve(r), 1000 + Math.random() * 500),
-        ),
+        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
     ) //TESTING PURPOSE ONLY
     .then((response) => response.json())
 }
@@ -91,9 +88,7 @@ const apiPostPostVote = (id, vote) => {
   })
     .then(
       (r) =>
-        new Promise((resolve) =>
-          setTimeout(() => resolve(r), 1000 + Math.random() * 500),
-        ),
+        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
     ) //TESTING PURPOSE ONLY
     .then((response) => response.json())
 }
@@ -109,9 +104,7 @@ const apiPostCommentVote = (id, vote) => {
   })
     .then(
       (r) =>
-        new Promise((resolve) =>
-          setTimeout(() => resolve(r), 1000 + Math.random() * 500),
-        ),
+        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
     ) //TESTING PURPOSE ONLY
     .then((response) => response.json())
 }
