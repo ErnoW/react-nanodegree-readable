@@ -2,6 +2,7 @@ import merge from 'lodash/merge'
 import {
   RECEIVE_CATEGORIES,
   CHANGE_POSTSORT,
+  CHANGE_COMMENTSORT,
   REQUEST_POSTS,
   ERROR_POSTS,
   RECEIVE_POSTS,
@@ -23,7 +24,7 @@ const categories = (state = [], action) => {
   }
 }
 
-const sortPosts = (state = 'date', action) => {
+const sortPosts = (state = 'timestamp', action) => {
   switch (action.type) {
     case CHANGE_POSTSORT:
       return action.sortOrder
@@ -32,9 +33,9 @@ const sortPosts = (state = 'date', action) => {
   }
 }
 
-const sortComments = (state = 'date', action) => {
+const sortComments = (state = 'timestamp', action) => {
   switch (action.type) {
-    case CHANGE_POSTSORT:
+    case CHANGE_COMMENTSORT:
       return action.sortOrder
     default:
       return state

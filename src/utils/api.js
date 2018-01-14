@@ -80,8 +80,26 @@ const apiPostPost = (post) => {
     .then((response) => response.json())
 }
 
-const apiPostVote = (id, vote) => {
+const apiPostPostVote = (id, vote) => {
   return fetch(`${API_ROOT}/posts/${id}`, {
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify({ option: vote }),
+  })
+    .then(
+      (r) =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve(r), 1000 + Math.random() * 500),
+        ),
+    ) //TESTING PURPOSE ONLY
+    .then((response) => response.json())
+}
+
+const apiPostCommentVote = (id, vote) => {
+  return fetch(`${API_ROOT}/comments/${id}`, {
     headers: {
       ...headers,
       'Content-Type': 'application/json',
@@ -105,4 +123,5 @@ export const getPost = (id) => apiCall(`posts/${id}`)
 export const getComments = (id) => apiCall(`posts/${id}/comments`)
 
 export const postPost = (post) => apiPostPost(post)
-export const postVote = (id, vote) => apiPostVote(id, vote)
+export const postPostVote = (id, vote) => apiPostPostVote(id, vote)
+export const postCommentVote = (id, vote) => apiPostCommentVote(id, vote)

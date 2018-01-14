@@ -3,19 +3,19 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { PostType } from '../utils/PropTypes'
-import { addVote } from '../actions'
+import { addPostVote } from '../actions'
 import Vote from './Vote'
 import { relativeDate } from '../utils/formatDate'
 
 class PostSnippet extends Component {
   static propTypes = {
     post: PostType.isRequired,
-    addVote: PropTypes.func.isRequired,
+    addPostVote: PropTypes.func.isRequired,
   }
 
   castVote = () => {
     const vote = 'upVote' //TODO: swithc between upvote and downvote (and remember state)
-    this.props.addVote(this.props.post.id, vote)
+    this.props.addPostVote(this.props.post.id, vote)
   }
 
   render() {
@@ -44,7 +44,7 @@ class PostSnippet extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addVote: (id, vote) => dispatch(addVote(id, vote)),
+  addPostVote: (id, vote) => dispatch(addPostVote(id, vote)),
 })
 
 export default connect(null, mapDispatchToProps)(PostSnippet)

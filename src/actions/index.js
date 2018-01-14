@@ -16,8 +16,12 @@ export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 
 export const START_POST_POST = 'START_POST_POST'
 export const FINISH_POST_POST = 'FINISH_POST_POST'
+
 export const START_POST_VOTE = 'START_POST_VOTE'
 export const FINISH_POST_VOTE = 'FINISH_POST_VOTE'
+
+export const START_COMMENT_VOTE = 'START_COMMENT_VOTE'
+export const FINISH_COMMENT_VOTE = 'FINISH_COMMENT_VOTE'
 
 export const CHANGE_POSTSORT = 'CHANGE_POSTSORT'
 export const CHANGE_COMMENTSORT = 'CHANGE_COMMENTSORT'
@@ -185,10 +189,29 @@ const finishPostVote = (payload) => ({
   payload,
 })
 
-export const addVote = (id, vote) => (dispatch) => {
+export const addPostVote = (id, vote) => (dispatch) => {
   dispatch(startPostVote(id, vote))
-  return api.postVote(id, vote).then((payload) => {
+  return api.postPostVote(id, vote).then((payload) => {
     dispatch(finishPostVote(normalize(payload, api.schemas.post)))
+    return payload
+  })
+}
+
+const startCommentVote = (id, vote) => ({
+  type: START_COMMENT_VOTE,
+  id,
+  vote,
+})
+
+const finishCommentVote = (payload) => ({
+  type: FINISH_COMMENT_VOTE,
+  payload,
+})
+
+export const addCommentVote = (id, vote) => (dispatch) => {
+  dispatch(startCommentVote(id, vote))
+  return api.postCommentVote(id, vote).then((payload) => {
+    dispatch(finishCommentVote(normalize(payload, api.schemas.comment)))
     return payload
   })
 }

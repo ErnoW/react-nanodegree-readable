@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { PostType, CommentType } from '../utils/PropTypes'
-import { fetchPost, addVote } from '../actions'
-import Vote from './Vote'
 import { relativeDate, largeDate } from '../utils/formatDate'
+import {
+  fetchPost,
+  addPostVote,
+  addCommentVote,
+  changeCommentSort,
+} from '../actions'
+import Vote from './Vote'
+import Select from './Select'
 
 class Post extends Component {
   static defaultProps = {}
@@ -18,7 +24,10 @@ class Post extends Component {
     isFetchingComments: PropTypes.bool.isRequired,
     hasErrorComments: PropTypes.bool.isRequired,
     fetchPost: PropTypes.func.isRequired,
-    addVote: PropTypes.func.isRequired,
+    addPostVote: PropTypes.func.isRequired,
+    addCommentVote: PropTypes.func.isRequired,
+    changeCommentSort: PropTypes.func.isRequired,
+    commentsSortOrder: PropTypes.string.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
         id: PropTypes.string,
@@ -30,9 +39,18 @@ class Post extends Component {
     this.props.fetchPost(this.props.match.params.id)
   }
 
-  castVote = () => {
+  castPostVote = () => {
     const vote = 'upVote' //TODO: swithc between upvote and downvote (and remember state)
-    this.props.addVote(this.props.match.params.id, vote)
+    this.props.addPostVote(this.props.match.params.id, vote)
+  }
+
+  castCommentVote = (id) => {
+    const vote = 'upVote' //TODO: swithc between upvote and downvote (and remember state)
+    this.props.addCommentVote(id, vote)
+  }
+
+  handleSort = (event) => {
+    this.props.changeCommentSort(event.target.value)
   }
 
   render() {
@@ -44,6 +62,7 @@ class Post extends Component {
       isFetchingPost,
       hasErrorComments,
       isFetchingComments,
+      commentsSortOrder,
     } = this.props
     const id = this.props.match.params.id
 
@@ -65,17 +84,41 @@ class Post extends Component {
     let filteredComments = null
     if (displayComments.length > 0) {
       filteredComments = (
-        <ul>
-          {displayComments.map((commentId) => {
-            return (
-              <li key={commentId}>
-                <h4>{comments[commentId].author}</h4>
-                <p>{relativeDate(comments[commentId].timestamp)}</p>
-                <p>{comments[commentId].body}</p>
-              </li>
-            )
-          })}
-        </ul>
+        <div>
+          <Select
+            label="Sort posts"
+            name="post-sort"
+            options={[
+              { value: 'timestamp', label: 'Date' },
+              { value: 'voteScore', label: 'Votes' },
+            ]}
+            selected={commentsSortOrder}
+            controlFunc={this.handleSort}
+          />
+          <ul>
+            {displayComments
+              .sort(
+                (a, b) =>
+                  comments[b][commentsSortOrder] -
+                  comments[a][commentsSortOrder],
+              )
+              .map((commentId) => {
+                return (
+                  <li key={commentId}>
+                    <h4>{comments[commentId].author}</h4>
+                    <p>{relativeDate(comments[commentId].timestamp)}</p>
+                    <p>{comments[commentId].body}</p>
+                    <p>votes: {comments[commentId].voteScore}</p>
+                    <Vote
+                      onClick={() =>
+                        this.castCommentVote(comments[commentId].id)
+                      }
+                    />
+                  </li>
+                )
+              })}
+          </ul>
+        </div>
       )
     } else {
       filteredComments = <p>No comments</p>
@@ -90,7 +133,7 @@ class Post extends Component {
       return (
         <div>
           {post}
-          <Vote onClick={this.castVote} />
+          <Vote onClick={this.castPostVote} />
           <h3>Comments</h3>
           {hasErrorComments && <p>Error on loading comments</p>}
           {isFetchingComments && <p>Loading Comments...</p>}
@@ -103,7 +146,9 @@ class Post extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPost: (id) => dispatch(fetchPost(id)),
-  addVote: (id, vote) => dispatch(addVote(id, vote)),
+  addPostVote: (id, vote) => dispatch(addPostVote(id, vote)),
+  addCommentVote: (id, vote) => dispatch(addCommentVote(id, vote)),
+  changeCommentSort: (sortOrder) => dispatch(changeCommentSort(sortOrder)),
 })
 
 const mapStateToProps = (state) => ({
@@ -114,6 +159,7 @@ const mapStateToProps = (state) => ({
   hasErrorPost: state.displayPost.hasError,
   isFetchingComments: state.displayComments.isFetching,
   hasErrorComments: state.displayComments.hasError,
+  commentsSortOrder: state.sortComments,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)
