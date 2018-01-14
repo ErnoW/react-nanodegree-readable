@@ -19,9 +19,22 @@ export const FINISH_POST_POST = 'FINISH_POST_POST'
 export const START_POST_VOTE = 'START_POST_VOTE'
 export const FINISH_POST_VOTE = 'FINISH_POST_VOTE'
 
+export const CHANGE_POSTSORT = 'CHANGE_POSTSORT'
+export const CHANGE_COMMENTSORT = 'CHANGE_COMMENTSORT'
+
 const requestCategories = {
   type: REQUEST_CATEGORIES,
 }
+
+export const changePostSort = (sortOrder) => ({
+  type: CHANGE_POSTSORT,
+  sortOrder,
+})
+
+export const changeCommentSort = (sortOrder) => ({
+  type: CHANGE_COMMENTSORT,
+  sortOrder,
+})
 
 const receiveCategories = (payload) => ({
   type: RECEIVE_CATEGORIES,

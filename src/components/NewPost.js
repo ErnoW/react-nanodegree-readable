@@ -72,7 +72,9 @@ class NewPost extends Component {
 
   render() {
     const { title, author, category, body } = this.state
-    const categories = this.props.categories.map((category) => category.name)
+    const categories = this.props.categories.map((category) => ({
+      value: category.name,
+    }))
 
     return (
       <div>

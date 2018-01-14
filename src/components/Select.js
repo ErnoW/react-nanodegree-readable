@@ -15,10 +15,10 @@ const Select = (props) => {
           onChange={props.controlFunc}
           disabled={props.disabled}
         >
-          <option value="">{props.placeholder}</option>
+          {props.placeholder && <option value="">{props.placeholder}</option>}
           {props.options.map((option) => (
-            <option key={option} value={option}>
-              {option}
+            <option key={option.value} value={option.value}>
+              {option.label || option.value}
             </option>
           ))}
         </select>
@@ -31,7 +31,12 @@ Select.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string,
+    }),
+  ).isRequired,
   selected: PropTypes.string,
   controlFunc: PropTypes.func.isRequired,
   placeholder: PropTypes.string,

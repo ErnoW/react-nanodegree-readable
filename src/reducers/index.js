@@ -1,6 +1,7 @@
 import merge from 'lodash/merge'
 import {
   RECEIVE_CATEGORIES,
+  CHANGE_POSTSORT,
   REQUEST_POSTS,
   ERROR_POSTS,
   RECEIVE_POSTS,
@@ -17,6 +18,24 @@ const categories = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_CATEGORIES:
       return action.payload.categories
+    default:
+      return state
+  }
+}
+
+const sortPosts = (state = 'date', action) => {
+  switch (action.type) {
+    case CHANGE_POSTSORT:
+      return action.sortOrder
+    default:
+      return state
+  }
+}
+
+const sortComments = (state = 'date', action) => {
+  switch (action.type) {
+    case CHANGE_POSTSORT:
+      return action.sortOrder
     default:
       return state
   }
@@ -148,6 +167,8 @@ const reducers = {
   displayPost,
   displayComments,
   initialLoading,
+  sortPosts,
+  sortComments,
 }
 
 export default reducers
