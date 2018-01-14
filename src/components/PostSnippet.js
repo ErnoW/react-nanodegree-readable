@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { PostType } from '../utils/PropTypes'
 import { addVote } from '../actions'
 import Vote from './Vote'
+import { relativeDate } from '../utils/formatDate'
 
 class PostSnippet extends Component {
   static propTypes = {
@@ -35,7 +36,7 @@ class PostSnippet extends Component {
         </Link>
         <p>{body}</p>
         Author: {author} | Comments: {commentCount} | Votes: {voteScore} | Date:{' '}
-        {timestamp}
+        {relativeDate(timestamp)}
         <Vote onClick={this.castVote} />
       </div>
     )

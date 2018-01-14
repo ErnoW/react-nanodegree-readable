@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { PostType, CommentType } from '../utils/PropTypes'
 import { fetchPost, addVote } from '../actions'
 import Vote from './Vote'
+import { relativeDate, largeDate } from '../utils/formatDate'
 
 class Post extends Component {
   static defaultProps = {}
@@ -52,7 +53,7 @@ class Post extends Component {
         <div>
           <h1>{posts[id].title}</h1>
           <p>
-            By: {posts[id].author} at {posts[id].timestamp}
+            By: {posts[id].author} at {largeDate(posts[id].timestamp)}
           </p>
           <p>Score: {posts[id].voteScore}</p>
           <p>{posts[id].body}</p>
@@ -69,7 +70,7 @@ class Post extends Component {
             return (
               <li key={commentId}>
                 <h4>{comments[commentId].author}</h4>
-                <p>{comments[commentId].timeStamp}</p>
+                <p>{relativeDate(comments[commentId].timestamp)}</p>
                 <p>{comments[commentId].body}</p>
               </li>
             )
