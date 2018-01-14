@@ -12,6 +12,7 @@ import {
   REQUEST_COMMENTS,
   ERROR_COMMENTS,
   RECEIVE_COMMENTS,
+  FINISH_POST_COMMENT,
 } from '../actions/index'
 
 //TODO: can I do this better with normalisr??
@@ -147,6 +148,11 @@ const displayComments = (
         isFetching: false,
         hasError: false,
         comments: [...action.payload.result],
+      }
+    case FINISH_POST_COMMENT:
+      return {
+        ...state,
+        comments: [...state.comments, action.payload.result],
       }
     default:
       return state

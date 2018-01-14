@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import uuidv1 from 'uuid/v1'
 import { connect } from 'react-redux'
 import { PostType, CommentType } from '../utils/PropTypes'
 import { relativeDate, largeDate } from '../utils/formatDate'
@@ -8,11 +9,22 @@ import {
   addPostVote,
   addCommentVote,
   changeCommentSort,
+  createComment,
 } from '../actions'
 import Vote from './Vote'
 import Select from './Select'
+import Button from './Button'
+import Input from './Input'
+import TextArea from './TextArea'
 
 class Post extends Component {
+  state = {
+    isCreateComment: false,
+    isPosting: false,
+    author: '',
+    comment: '',
+  }
+
   static defaultProps = {}
 
   static propTypes = {
@@ -26,6 +38,7 @@ class Post extends Component {
     fetchPost: PropTypes.func.isRequired,
     addPostVote: PropTypes.func.isRequired,
     addCommentVote: PropTypes.func.isRequired,
+    createComment: PropTypes.func.isRequired,
     changeCommentSort: PropTypes.func.isRequired,
     commentsSortOrder: PropTypes.string.isRequired,
     match: PropTypes.shape({
@@ -53,6 +66,51 @@ class Post extends Component {
     this.props.changeCommentSort(event.target.value)
   }
 
+  handleInputChange = (event) => {
+    const input = event.target.name
+    const value = event.target.value
+
+    this.setState({ [input]: value })
+  }
+
+  handleCommentReset = () => {
+    this.setState({
+      author: '',
+      comment: '',
+      isCreateComment: false,
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+
+    //TODO: check better validation?
+    if (
+      this.state.isPosting ||
+      this.state.body === '' ||
+      this.state.author === ''
+    ) {
+      return
+    }
+
+    this.setState({ isPosting: true })
+    this.props
+      .createComment({
+        id: uuidv1(),
+        timestamp: Date.now(),
+        parentId: this.props.match.params.id,
+        body: this.state.comment,
+        author: this.state.author,
+      })
+      .then(() => this.setState({ isPosting: false, isCreateComment: false }))
+  }
+
+  showAddComment = () => {
+    this.setState({
+      isCreateComment: true,
+    })
+  }
+
   render() {
     const {
       posts,
@@ -64,6 +122,7 @@ class Post extends Component {
       isFetchingComments,
       commentsSortOrder,
     } = this.props
+    const { author, comment } = this.state
     const id = this.props.match.params.id
 
     let post = null
@@ -134,6 +193,41 @@ class Post extends Component {
         <div>
           {post}
           <Vote onClick={this.castPostVote} />
+          <div>
+            {this.state.isCreateComment ? (
+              <form onSubmit={this.handleSubmit}>
+                <Input
+                  name="author"
+                  label="Author"
+                  value={author}
+                  controlFunc={this.handleInputChange}
+                  placeholder="author"
+                  disabled={this.state.isPosting}
+                />
+                <TextArea
+                  name="comment"
+                  label="Post"
+                  value={comment}
+                  controlFunc={this.handleInputChange}
+                  placeholder="comment"
+                  disabled={this.state.isPosting}
+                />
+                <Button
+                  text="Create new comment"
+                  type="submit"
+                  disabled={this.state.isPosting}
+                />
+                <Button
+                  text="Cancel"
+                  type="reset"
+                  onClick={this.handleCommentReset}
+                  disabled={this.state.isPosting}
+                />
+              </form>
+            ) : (
+              <Button text="Add comment" onClick={this.showAddComment} />
+            )}
+          </div>
           <h3>Comments</h3>
           {hasErrorComments && <p>Error on loading comments</p>}
           {isFetchingComments && <p>Loading Comments...</p>}
@@ -147,6 +241,7 @@ class Post extends Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchPost: (id) => dispatch(fetchPost(id)),
   addPostVote: (id, vote) => dispatch(addPostVote(id, vote)),
+  createComment: (comment) => dispatch(createComment(comment)),
   addCommentVote: (id, vote) => dispatch(addCommentVote(id, vote)),
   changeCommentSort: (sortOrder) => dispatch(changeCommentSort(sortOrder)),
 })
