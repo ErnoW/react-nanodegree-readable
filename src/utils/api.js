@@ -1,12 +1,9 @@
-import { schema } from 'normalizr'
+import { schema, normalize } from 'normalizr'
 
 const API_ROOT = 'http://localhost:3001'
 const headers = { Authorization: 'RANDOM_TOKEN' }
-const TEST_TIMEOUT = 500
 
-// Define schemes by using normalizr
-// see: https://github.com/paularmstrong/normalizr
-
+// Define schemes by using normalizr. see: https://github.com/paularmstrong/normalizr
 const postSchema = new schema.Entity(
   'posts',
   {},
@@ -30,108 +27,110 @@ export const schemas = {
   commentList: [commentSchema],
 }
 
-const apiCall = (path) => {
-  const apiLog = {}
-  apiLog.root = `${API_ROOT}/${path}` //TEST
-
-  return fetch(`${API_ROOT}/${path}`, {
+// Generic api calls
+const apiGet = (endpoint, schema) => {
+  return fetch(`${API_ROOT}/${endpoint}`, {
     headers,
+    method: 'GET',
   })
-    .then(
-      (r) =>
-        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
-    ) //TESTING PURPOSE ONLY
     .then((response) => {
-      apiLog.response = response //TEST
       if (!response.ok) {
         throw Error(response.statusText)
-        console.groupEnd(`Api Call to ${apiLog.root}`) // eslint-disable-line
       }
       return response.json()
     })
     .then((json) => {
-      apiLog.json = json //TEST
-      console.groupCollapsed(`Api Call to ${apiLog.root}`) // eslint-disable-line
-      console.log('root', apiLog.root) // eslint-disable-line
-      console.log('response', apiLog.response) // eslint-disable-line
-      console.log('json', apiLog.json) // eslint-disable-line
-      console.groupEnd(`Api Call to ${apiLog.root}`) // eslint-disable-line
-
+      if (schema) {
+        return normalize(json, schema)
+      }
       return json
     })
 }
 
-const apiPostPost = (post) => {
-  return fetch(`${API_ROOT}/posts`, {
+const apiPost = (endpoint, schema, body) => {
+  return fetch(`${API_ROOT}/${endpoint}`, {
     headers: {
       ...headers,
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    body: JSON.stringify(post),
+    body: JSON.stringify(body),
   })
-    .then(
-      (r) =>
-        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
-    ) //TESTING PURPOSE ONLY
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText)
+      }
+      return response.json()
+    })
+    .then((json) => {
+      if (schema) {
+        return normalize(json, schema)
+      }
+      return json
+    })
 }
 
-const apiPostComment = (comment) => {
-  return fetch(`${API_ROOT}/comments`, {
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify(comment),
-  })
-    .then(
-      (r) =>
-        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
-    ) //TESTING PURPOSE ONLY
-    .then((response) => response.json())
+// Middleware for api calls
+export const callAPIMiddleware = (store) => (next) => (action) => {
+  const callAPI = action.callAPI
+
+  if (typeof callAPI === 'undefined') {
+    return next(action)
+  }
+
+  const { endpoint, method, schema, types, shouldCallAPI, body } = callAPI
+
+  if (typeof endpoint !== 'string') {
+    throw new Error('Specify a string endpoint URL.')
+  }
+
+  if (method !== 'GET' && method !== 'POST' && method !== 'POST') {
+    throw new Error('Use a valid request type.')
+  }
+
+  if (!Array.isArray(types) || types.length !== 3) {
+    throw new Error('Expected an array of three action types.')
+  }
+
+  if (!types.every((type) => typeof type === 'string')) {
+    throw new Error('Expected action types to be strings.')
+  }
+
+  if (shouldCallAPI !== undefined && !shouldCallAPI(store.getState())) {
+    return
+  }
+
+  const actionWith = (data) => {
+    const finalAction = Object.assign({}, action, data)
+    delete finalAction.callAPI
+    return finalAction
+  }
+
+  const [requestType, successType, failureType] = types
+
+  next(actionWith({ type: requestType }))
+
+  let apicall
+  if (method === 'GET') {
+    apicall = apiGet(endpoint, schema)
+  } else {
+    apicall = apiPost(endpoint, schema, body)
+  }
+
+  return apicall.then(
+    (response) =>
+      next(
+        actionWith({
+          payload: response,
+          type: successType,
+        }),
+      ),
+    (error) =>
+      next(
+        actionWith({
+          type: failureType,
+          error: error.message || 'Something bad happened',
+        }),
+      ),
+  )
 }
-
-const apiPostPostVote = (id, vote) => {
-  return fetch(`${API_ROOT}/posts/${id}`, {
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify({ option: vote }),
-  })
-    .then(
-      (r) =>
-        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
-    ) //TESTING PURPOSE ONLY
-    .then((response) => response.json())
-}
-
-const apiPostCommentVote = (id, vote) => {
-  return fetch(`${API_ROOT}/comments/${id}`, {
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify({ option: vote }),
-  })
-    .then(
-      (r) =>
-        new Promise((resolve) => setTimeout(() => resolve(r), TEST_TIMEOUT)),
-    ) //TESTING PURPOSE ONLY
-    .then((response) => response.json())
-}
-
-export const getCategories = () => apiCall('categories') // categoryListSchema
-export const getCategorizedPosts = (category) => apiCall(`${category}/posts`)
-export const getAllPosts = () => apiCall('posts')
-export const getPost = (id) => apiCall(`posts/${id}`)
-export const getComments = (id) => apiCall(`posts/${id}/comments`)
-
-export const postPost = (post) => apiPostPost(post)
-export const postComment = (comment) => apiPostComment(comment)
-export const postPostVote = (id, vote) => apiPostPostVote(id, vote)
-export const postCommentVote = (id, vote) => apiPostCommentVote(id, vote)

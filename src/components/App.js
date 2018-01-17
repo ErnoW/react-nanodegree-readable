@@ -2,25 +2,26 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Route } from 'react-router-dom'
-import { fetchCategories } from '../actions'
+import { loadCategories } from '../actions'
 import Navigation from './Navigation'
 import PostList from './PostList'
 import Post from './Post'
 import NewPost from './NewPost'
+import { CategoryType } from '../utils/PropTypes'
 
 class App extends Component {
   static propTypes = {
-    fetchCategories: PropTypes.func.isRequired,
-    initialLoading: PropTypes.bool.isRequired,
+    loadCategories: PropTypes.func.isRequired,
+    categories: PropTypes.arrayOf(CategoryType).isRequired,
   }
 
   componentWillMount() {
-    this.props.fetchCategories()
+    this.props.loadCategories()
   }
 
   //TODO: improve loading state to include whole app
   render() {
-    if (this.props.initialLoading === true) {
+    if (!this.props.categories || this.props.categories.length === 0) {
       return (
         <div className="App">
           <p>Loading...</p>
@@ -41,11 +42,11 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  initialLoading: state.initialLoading,
+  categories: state.categories,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCategories: () => dispatch(fetchCategories()),
+  loadCategories: () => dispatch(loadCategories()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

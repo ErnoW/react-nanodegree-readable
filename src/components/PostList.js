@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 import { PostType } from '../utils/PropTypes'
 import PostSnippet from './PostSnippet'
 import Select from './Select'
-import { fetchPosts, changePostSort } from '../actions'
+import { loadPosts, sortPosts } from '../actions'
 
 class PostList extends Component {
   static propTypes = {
     posts: PropTypes.objectOf(PostType),
     fetchedPosts: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-    fetchPosts: PropTypes.func.isRequired,
-    changePostSort: PropTypes.func.isRequired,
-    postsSortOrder: PropTypes.string.isRequired,
+    loadPosts: PropTypes.func.isRequired,
+    sortPosts: PropTypes.func.isRequired,
+    postsSort: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
     hasError: PropTypes.bool.isRequired,
     match: PropTypes.shape({
@@ -28,27 +28,21 @@ class PostList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPosts(this.props.match.params.category)
+    this.props.loadPosts(this.props.match.params.category)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.category !== prevProps.match.params.category) {
-      this.props.fetchPosts(this.props.match.params.category)
+      this.props.loadPosts(this.props.match.params.category)
     }
   }
 
   handleSort = (event) => {
-    this.props.changePostSort(event.target.value)
+    this.props.sortPosts(event.target.value)
   }
 
   render() {
-    const {
-      posts,
-      fetchedPosts,
-      isFetching,
-      hasError,
-      postsSortOrder,
-    } = this.props
+    const { posts, fetchedPosts, isFetching, hasError, postsSort } = this.props
     const category = this.props.match.params.category
 
     let filteredPosts = []
@@ -71,14 +65,12 @@ class PostList extends Component {
                 { value: 'timestamp', label: 'Date' },
                 { value: 'voteScore', label: 'Votes' },
               ]}
-              selected={postsSortOrder}
+              selected={postsSort}
               controlFunc={this.handleSort}
             />
             <ul>
               {filteredPosts
-                .sort(
-                  (a, b) => posts[b][postsSortOrder] - posts[a][postsSortOrder],
-                )
+                .sort((a, b) => posts[b][postsSort] - posts[a][postsSort])
                 .map((postId) => (
                   <li key={postId}>
                     <PostSnippet post={posts[postId]} />
@@ -97,12 +89,12 @@ const mapStatetoProps = (state) => ({
   fetchedPosts: state.fetchedPosts.posts,
   isFetching: state.fetchedPosts.isFetching,
   hasError: state.fetchedPosts.hasError,
-  postsSortOrder: state.sortPosts,
+  postsSort: state.postsSort,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPosts: (category) => dispatch(fetchPosts(category)),
-  changePostSort: (sortOrder) => dispatch(changePostSort(sortOrder)),
+  loadPosts: (category) => dispatch(loadPosts(category)),
+  sortPosts: (sortOrder) => dispatch(sortPosts(sortOrder)),
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(PostList)
