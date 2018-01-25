@@ -1,3 +1,49 @@
 // ---------------------------------------------------------------
 //  Typography
 // ---------------------------------------------------------------
+html {
+  font-size: $fs;
+  line-height: $lh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $ff-headings;
+  line-height: $lh;
+  margin-bottom: .5 * $lh;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: $fs-h1;
+}
+
+h2 {
+  font-size: $fs-h2;
+}
+
+h3 {
+  font-size: $fs-h3;
+}
+
+h4 {
+  font-size: $fs-h4;
+}
+
+h5 {
+  font-size: $fs-h5;
+}
+
+h6 {
+  font-size: $fs-h6;
+}
+
+body {
+  font-family: $ff-body;
+  font-size: $fs;
+  line-height: $lh;
+}
