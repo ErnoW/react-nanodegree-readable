@@ -43,11 +43,18 @@ $h-space:                   1rem;
 $v-space:                   1rem;
 
 //== Typography
-$ff-body:                   'Source Sans Pro', sans-serif;
-$ff-headings:               'Montserrat', sans-serif;
+$ff-body:                   'Muli', sans-serif;
+$ff-headings:               'Gentium Book Basic', sans-serif;
 
-$fs:                        1em;
+$fs:                        1rem;
 $lh:                        1.5em;
+
+$fs-h1: 3.2 * $fs;
+$fs-h2: 2.6 * $fs;
+$fs-h3: 2.1 * $fs;
+$fs-h4: 1.7 * $fs;
+$fs-h5: 1.4 * $fs;
+$fs-h6: 1.2 * $fs;
 
 //== Borders
 $border-hairline:           1px;
