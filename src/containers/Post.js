@@ -12,11 +12,11 @@ import {
   sortComments,
   createComment,
 } from '../actions'
-import Vote from './Vote'
-import Select from './Select'
-import Button from './Button'
-import Input from './Input'
-import TextArea from './TextArea'
+import Vote from '../components/Vote'
+import Select from '../components/Select'
+import Button from '../components/Button'
+import Input from '../components/Input'
+import TextArea from '../components/TextArea'
 
 class Post extends Component {
   state = {

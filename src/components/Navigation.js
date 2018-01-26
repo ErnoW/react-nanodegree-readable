@@ -1,32 +1,28 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { CategoryType } from '../utils/PropTypes'
 
-class Navigation extends Component {
-  static propTypes = {
-    categories: PropTypes.arrayOf(CategoryType).isRequired,
-  }
-
-  render() {
-    return (
-      <div>
-        <ul>
-          {this.props.categories.map((category) => (
-            <li key={category.name}>
-              <Link to={`/category/${category.path}`}>{category.name}</Link>
-            </li>
-          ))}
-        </ul>
-        <Link to="/newpost">Make new post</Link>
-      </div>
-    )
-  }
+const Navigation = ({ links }) => {
+  return (
+    <nav>
+      <ul>
+        {links.map((link) => (
+          <li key={link.name}>
+            <Link to={link.path}>{link.name}</Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
 }
 
-const mapStateToProps = (state) => ({
-  categories: state.categories,
-})
+Navigation.propTypes = {
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      path: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+}
 
-export default connect(mapStateToProps, null)(Navigation)
+export default Navigation

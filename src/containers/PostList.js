@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { PostType } from '../utils/PropTypes'
-import PostSnippet from './PostSnippet'
-import Select from './Select'
 import { loadPosts, sortPosts } from '../actions'
+import PostSnippet from '../components/PostSnippet'
+import Select from '../components/Select'
 
 class PostList extends Component {
   static propTypes = {

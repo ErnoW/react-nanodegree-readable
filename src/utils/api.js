@@ -117,20 +117,22 @@ export const callAPIMiddleware = (store) => (next) => (action) => {
     apicall = apiPost(endpoint, schema, body)
   }
 
-  return apicall.then(
-    (response) =>
-      next(
-        actionWith({
-          payload: response,
-          type: successType,
-        }),
-      ),
-    (error) =>
-      next(
-        actionWith({
-          type: failureType,
-          error: error.message || 'Something bad happened',
-        }),
-      ),
-  )
+  return apicall
+    .then((ms) => new Promise((resolve) => setTimeout(() => resolve(ms), 1000)))
+    .then(
+      (response) =>
+        next(
+          actionWith({
+            payload: response,
+            type: successType,
+          }),
+        ),
+      (error) =>
+        next(
+          actionWith({
+            type: failureType,
+            error: error.message || 'Something bad happened',
+          }),
+        ),
+    )
 }

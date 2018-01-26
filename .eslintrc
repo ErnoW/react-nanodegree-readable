@@ -1,6 +1,10 @@
 {
-  "extends": ["airbnb", "prettier", "eslint:recommended",
-    "plugin:react/recommended"],
+  "extends": [
+    "airbnb",
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   "parser": "babel-eslint",
   "plugins": ["prettier", "jsx-a11y"],
   "rules": {
@@ -25,7 +29,8 @@
       }
     ],
     "no-underscore-dangle": 0,
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    "react/forbid-prop-types": ["error", { "forbid": ["any"] }]
   },
   "env": {
     "browser": true,
