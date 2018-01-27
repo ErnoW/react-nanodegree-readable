@@ -66,7 +66,7 @@ class PostList extends Component {
                 { value: 'voteScore', label: 'Votes' },
               ]}
               selected={postsSort}
-              controlFunc={this.handleSort}
+              onChange={this.handleSort}
             />
             <ul>
               {filteredPosts

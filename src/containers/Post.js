@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import uuidv1 from 'uuid/v1'
+// import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { PostType, CommentType } from '../utils/PropTypes'
-import { relativeDate, largeDate } from '../utils/formatDate'
+// import { PostType, CommentType } from '../utils/PropTypes'
+import { relativeDate, largeDate } from '../utils/format'
 import {
   loadPost,
   loadComments,
@@ -14,41 +13,30 @@ import {
 } from '../actions'
 import Vote from '../components/Vote'
 import Select from '../components/Select'
-import Button from '../components/Button'
-import Input from '../components/Input'
-import TextArea from '../components/TextArea'
+import NewComment from './NewComment'
 
 class Post extends Component {
-  state = {
-    isCreateComment: false,
-    isPosting: false,
-    author: '',
-    comment: '',
-  }
-
-  static defaultProps = {}
-
-  static propTypes = {
-    posts: PropTypes.objectOf(PostType).isRequired,
-    displayComments: PropTypes.arrayOf(PropTypes.string).isRequired,
-    comments: PropTypes.objectOf(CommentType).isRequired,
-    isFetchingPost: PropTypes.bool.isRequired,
-    hasErrorPost: PropTypes.bool.isRequired,
-    isFetchingComments: PropTypes.bool.isRequired,
-    hasErrorComments: PropTypes.bool.isRequired,
-    loadPost: PropTypes.func.isRequired,
-    loadComments: PropTypes.func.isRequired,
-    votePost: PropTypes.func.isRequired,
-    voteComment: PropTypes.func.isRequired,
-    createComment: PropTypes.func.isRequired,
-    sortComments: PropTypes.func.isRequired,
-    commentsSort: PropTypes.string.isRequired,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string,
-      }),
-    }).isRequired,
-  }
+  // static propTypes = {
+  //   posts: PropTypes.objectOf(PostType).isRequired,
+  //   displayComments: PropTypes.arrayOf(PropTypes.string).isRequired,
+  //   comments: PropTypes.objectOf(CommentType).isRequired,
+  //   isFetchingPost: PropTypes.bool.isRequired,
+  //   hasErrorPost: PropTypes.bool.isRequired,
+  //   isFetchingComments: PropTypes.bool.isRequired,
+  //   hasErrorComments: PropTypes.bool.isRequired,
+  //   loadPost: PropTypes.func.isRequired,
+  //   loadComments: PropTypes.func.isRequired,
+  //   votePost: PropTypes.func.isRequired,
+  //   voteComment: PropTypes.func.isRequired,
+  //   createComment: PropTypes.func.isRequired,
+  //   sortComments: PropTypes.func.isRequired,
+  //   commentsSort: PropTypes.string.isRequired,
+  //   match: PropTypes.shape({
+  //     params: PropTypes.shape({
+  //       id: PropTypes.string,
+  //     }),
+  //   }).isRequired,
+  // }
 
   componentDidMount() {
     this.props.loadPost(this.props.match.params.id).then((response) => {
@@ -80,44 +68,6 @@ class Post extends Component {
     this.setState({ [input]: value })
   }
 
-  handleCommentReset = () => {
-    this.setState({
-      author: '',
-      comment: '',
-      isCreateComment: false,
-    })
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-
-    //TODO: check better validation?
-    if (
-      this.state.isPosting ||
-      this.state.body === '' ||
-      this.state.author === ''
-    ) {
-      return
-    }
-
-    this.setState({ isPosting: true })
-    this.props
-      .createComment({
-        id: uuidv1(),
-        timestamp: Date.now(),
-        parentId: this.props.match.params.id,
-        body: this.state.comment,
-        author: this.state.author,
-      })
-      .then(() => this.setState({ isPosting: false, isCreateComment: false }))
-  }
-
-  showAddComment = () => {
-    this.setState({
-      isCreateComment: true,
-    })
-  }
-
   render() {
     const {
       posts,
@@ -129,7 +79,7 @@ class Post extends Component {
       isFetchingComments,
       commentsSort,
     } = this.props
-    const { author, comment } = this.state
+    // const { author, comment } = this.state
     const id = this.props.match.params.id
 
     let post = null
@@ -159,7 +109,7 @@ class Post extends Component {
               { value: 'voteScore', label: 'Votes' },
             ]}
             selected={commentsSort}
-            controlFunc={this.handleSort}
+            onChange={this.handleSort}
           />
           <ul>
             {displayComments
@@ -198,14 +148,16 @@ class Post extends Component {
         <div>
           {post}
           <Vote onClick={this.castPostVote} />
-          <div>
+
+          <NewComment parentId={id} />
+          {/* <div>
             {this.state.isCreateComment ? (
               <form onSubmit={this.handleSubmit}>
                 <Input
                   name="author"
                   label="Author"
                   value={author}
-                  controlFunc={this.handleInputChange}
+                  onChange={this.handleInputChange}
                   placeholder="author"
                   disabled={this.state.isPosting}
                 />
@@ -213,7 +165,7 @@ class Post extends Component {
                   name="comment"
                   label="Post"
                   value={comment}
-                  controlFunc={this.handleInputChange}
+                  onChange={this.handleInputChange}
                   placeholder="comment"
                   disabled={this.state.isPosting}
                 />
@@ -232,7 +184,7 @@ class Post extends Component {
             ) : (
               <Button text="Add comment" onClick={this.showAddComment} />
             )}
-          </div>
+          </div> */}
           <h3>Comments</h3>
           {hasErrorComments && <p>Error on loading comments</p>}
           {isFetchingComments && <p>Loading Comments...</p>}

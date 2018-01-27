@@ -1,21 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Select = (props) => {
+const Select = ({ field, ...props }) => {
   const id = props.id || props.name
 
   return (
     <div className="field">
       <label htmlFor={id}>
         {props.label}
-        <select
-          name={props.name}
-          id={id}
-          value={props.selected}
-          onChange={props.controlFunc}
-          disabled={props.disabled}
-        >
-          {props.placeholder && <option value="">{props.placeholder}</option>}
+        <select id={id} {...field} {...props}>
+          {props.placeholder && (
+            <option value="" selected>
+              {props.placeholder}
+            </option>
+          )}
           {props.options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label || option.value}
@@ -23,6 +21,7 @@ const Select = (props) => {
           ))}
         </select>
       </label>
+      {props.error && <span>{props.error}</span>}
     </div>
   )
 }
@@ -38,15 +37,17 @@ Select.propTypes = {
     }),
   ).isRequired,
   selected: PropTypes.string,
-  controlFunc: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
+  error: PropTypes.string,
 }
 
 Select.defaultProps = {
   placeholder: '',
   id: '',
   selected: null,
+  error: '',
   disabled: false,
 }
 

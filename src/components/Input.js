@@ -1,23 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Input = (props) => {
+const Input = ({ field, ...props }) => {
   const id = props.id || props.name
 
   return (
     <div className="field">
       <label htmlFor={id}>
         {props.label}
-        <input
-          type="text"
-          name={props.name}
-          id={id}
-          value={props.value}
-          onChange={props.controlFunc}
-          placeholder={props.placeholder}
-          disabled={props.disabled}
-        />
+        <input type="text" id={id} {...field} {...props} />
       </label>
+      {props.error && <span>{props.error}</span>}
     </div>
   )
 }
@@ -25,17 +18,19 @@ const Input = (props) => {
 Input.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  error: PropTypes.string,
   id: PropTypes.string,
   value: PropTypes.string.isRequired,
-  controlFunc: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
 }
 
 Input.defaultProps = {
-  placeholder: '',
   id: '',
+  error: '',
   disabled: false,
+  placeholder: '',
 }
 
 export default Input
