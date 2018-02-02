@@ -1,11 +1,13 @@
+// TODO: Move to container or so?? Or make functional
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { PostType } from '../utils/PropTypes'
-import { votePost } from '../actions'
-import Vote from './Vote'
-import { relativeDate } from '../utils/format'
+import { PostType } from '../../utils/PropTypes'
+import { votePost } from '../../actions'
+import Vote from '../Vote'
+import { relativeDate } from '../../utils/formatDate'
 
 class PostSnippet extends Component {
   static propTypes = {

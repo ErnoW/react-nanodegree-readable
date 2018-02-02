@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import styles from './Navigation.module.css'
 
 const Navigation = ({ links }) => {
   return (
-    <nav>
+    <nav className={styles.navigation}>
       <ul>
         {links.map((link) => (
           <li key={link.name}>
