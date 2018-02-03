@@ -24,7 +24,11 @@ class NavigationContainer extends Component {
       },
     ]
 
-    return <Navigation links={links} />
+    return (
+      <div className="container">
+        <Navigation links={links} />
+      </div>
+    )
   }
 }
 

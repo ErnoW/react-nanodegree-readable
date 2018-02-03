@@ -4,4 +4,21 @@
 
 body {
   background-color: $col-light;
+  color: $grey50;
+  font-size: $fs;
+  line-height: $lh;
+  font-family: $ff-body;
+}
+
+a {
+  color: $grey90;
+  transition: all $duration-fast;
+  border-bottom: $border-thin solid transparent;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    border-bottom: $border-thin solid $col-primary;
+    color: $col-primary;
+  }
 }

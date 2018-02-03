@@ -52,7 +52,7 @@ class PostList extends Component {
 
     //TODO: better error and loading handling
     return (
-      <div>
+      <div className="container">
         {hasError && <p>Error</p>}
         {isFetching && filteredPosts.length === 0 && <p>Loading...</p>}
         {!isFetching && !hasError && filteredPosts.length === 0 && <p>Empty</p>}

@@ -6,7 +6,10 @@ import styles from './Navigation.module.css'
 const Navigation = ({ links }) => {
   return (
     <nav className={styles.navigation}>
-      <ul>
+      <div>
+        <span>Home</span>
+      </div>
+      <ul className={styles.menu}>
         {links.map((link) => (
           <li key={link.name}>
             <Link to={link.path}>{link.name}</Link>

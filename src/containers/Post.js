@@ -145,7 +145,7 @@ class Post extends Component {
       return <p>Loading Post...</p>
     } else {
       return (
-        <div>
+        <div className="container">
           {post}
           <Vote onClick={this.castPostVote} />
 

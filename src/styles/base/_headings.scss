@@ -1,10 +1,6 @@
 // ---------------------------------------------------------------
-//  Typography
+//  Headings
 // ---------------------------------------------------------------
-html {
-  font-size: $fs;
-  line-height: $lh;
-}
 
 h1,
 h2,
@@ -14,8 +10,9 @@ h5,
 h6 {
   font-family: $ff-headings;
   line-height: $lh;
-  margin-bottom: .5 * $lh;
+  margin-bottom: 0.5 * $lh;
   margin-top: 0;
+  color: $col-dark;
 }
 
 h1 {
@@ -40,10 +37,4 @@ h5 {
 
 h6 {
   font-size: $fs-h6;
-}
-
-body {
-  font-family: $ff-body;
-  font-size: $fs;
-  line-height: $lh;
 }
