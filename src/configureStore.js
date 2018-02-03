@@ -33,6 +33,15 @@ const configureStore = () => {
     ),
   )
 
+  // Hot reloading
+  if (process.env.NODE_ENV !== 'production') {
+    if (module.hot) {
+      module.hot.accept('./reducers', () => {
+        store.replaceReducer(reducers)
+      })
+    }
+  }
+
   return store
 }
 

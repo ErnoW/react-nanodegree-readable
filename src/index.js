@@ -11,4 +11,15 @@ ReactDOM.render(
   <Root store={store} history={history} />,
   document.getElementById('root'),
 )
+
+// Hot reloading
+if (module.hot) {
+  module.hot.accept('./containers/Root', () => {
+    ReactDOM.render(
+      <Root store={store} history={history} />,
+      document.getElementById('root'),
+    )
+  })
+}
+
 registerServiceWorker()
