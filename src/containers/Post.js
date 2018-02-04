@@ -102,7 +102,7 @@ class Post extends Component {
       filteredComments = (
         <div>
           <Select
-            label="Sort posts"
+            label="Sort posts:"
             name="post-sort"
             options={[
               { value: 'timestamp', label: 'Date' },
@@ -110,6 +110,7 @@ class Post extends Component {
             ]}
             selected={commentsSort}
             onChange={this.handleSort}
+            inline="true"
           />
           <ul>
             {displayComments
@@ -148,7 +149,7 @@ class Post extends Component {
         <div className="container">
           {post}
           <Vote onClick={this.castPostVote} />
-
+          <h2>Add new comment</h2>
           <NewComment parentId={id} />
           {/* <div>
             {this.state.isCreateComment ? (

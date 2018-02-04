@@ -8,6 +8,7 @@ import { PostType } from '../../utils/PropTypes'
 import { votePost } from '../../actions'
 import Vote from '../Vote'
 import { relativeDate } from '../../utils/format'
+import styles from './PostSnippet.module.css'
 
 class PostSnippet extends Component {
   static propTypes = {
@@ -32,7 +33,7 @@ class PostSnippet extends Component {
     } = this.props.post
 
     return (
-      <div>
+      <div className={styles.container}>
         <Link to={`/post/${id}`}>
           <h2>{title}</h2>
         </Link>

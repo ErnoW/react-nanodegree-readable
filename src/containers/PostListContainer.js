@@ -5,8 +5,9 @@ import { PostType } from '../utils/PropTypes'
 import { loadPosts, sortPosts } from '../actions'
 import PostSnippet from '../components/PostSnippet'
 import Select from '../components/UI/Select'
+import PostList from '../components/PostList'
 
-class PostList extends Component {
+class PostListContainer extends Component {
   static propTypes = {
     posts: PropTypes.objectOf(PostType),
     fetchedPosts: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
@@ -59,7 +60,7 @@ class PostList extends Component {
         {filteredPosts.length > 0 && (
           <div>
             <Select
-              label="Sort posts"
+              label="Sort posts:"
               name="post-sort"
               options={[
                 { value: 'timestamp', label: 'Date' },
@@ -67,16 +68,13 @@ class PostList extends Component {
               ]}
               selected={postsSort}
               onChange={this.handleSort}
+              inline="true"
             />
-            <ul>
-              {filteredPosts
+            <PostList
+              posts={filteredPosts
                 .sort((a, b) => posts[b][postsSort] - posts[a][postsSort])
-                .map((postId) => (
-                  <li key={postId}>
-                    <PostSnippet post={posts[postId]} />
-                  </li>
-                ))}
-            </ul>
+                .map((postId) => posts[postId])}
+            />
           </div>
         )}
       </div>
@@ -97,4 +95,4 @@ const mapDispatchToProps = (dispatch) => ({
   sortPosts: (sortOrder) => dispatch(sortPosts(sortOrder)),
 })
 
-export default connect(mapStatetoProps, mapDispatchToProps)(PostList)
+export default connect(mapStatetoProps, mapDispatchToProps)(PostListContainer)
