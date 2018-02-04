@@ -23,13 +23,15 @@ class App extends Component {
     return (
       <div className="App">
         <NavigationContainer />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/category/:category" exact component={PostList} />
-          <Route path="/post/:id" exact component={Post} />
-          <Route path="/newpost" exact component={NewPost} />
-          <Route component={NotFound} />
-        </Switch>
+        <main className="main-content">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/category/:category" exact component={PostList} />
+            <Route path="/post/:id" exact component={Post} />
+            <Route path="/newpost" exact component={NewPost} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
       </div>
     )
   }

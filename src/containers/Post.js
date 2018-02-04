@@ -12,7 +12,7 @@ import {
   createComment,
 } from '../actions'
 import Vote from '../components/Vote'
-import Select from '../components/Select'
+import Select from '../components/UI/Select'
 import NewComment from './NewComment'
 
 class Post extends Component {

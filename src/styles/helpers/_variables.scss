@@ -35,19 +35,20 @@ $col-alert: $red;
 $col-warning: $yellow;
 $col-success: $green;
 $col-info: $cyan;
+
 $col-light: $grey10;
 $col-dark: $grey70;
 
 //-- Spacing
-$h-space: 1rem;
-$v-space: 1rem;
+$h-space: 2rem;
+$v-space: 2rem;
 
 //== Typography
 $ff-body: 'Poppins', sans-serif;
 $ff-headings: 'Gentium Book Basic', sans-serif;
 
 $fs: 1rem;
-$lh: 1.2em;
+$lh: 1;
 
 $fs-s: 0.8rem;
 
@@ -62,7 +63,7 @@ $fs-h6: 1.2 * $fs;
 $border-hairline: 1px;
 $border-thin: 2px;
 $border-thick: 3px;
-$border-radius: 2px;
+$border-radius: 4px;
 
 //== Layout
 $maxWidth: 800px;

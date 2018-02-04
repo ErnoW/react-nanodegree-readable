@@ -1,28 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import InputField from '../InputField'
+import styles from './Select.module.css'
 
-const Select = ({ field, ...props }) => {
-  const id = props.id || props.name
+const Select = ({ field, error, label, id, ...props }) => {
+  id = id || props.name
 
   return (
-    <div className="field">
-      <label htmlFor={id}>
-        {props.label}
-        <select id={id} {...field} {...props}>
-          {props.placeholder && (
-            <option value="" selected>
-              {props.placeholder}
-            </option>
-          )}
-          {props.options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label || option.value}
-            </option>
-          ))}
-        </select>
-      </label>
-      {props.error && <span>{props.error}</span>}
-    </div>
+    <InputField error={error} label={label} id={id}>
+      <select className={styles.select} id={id} {...field} {...props}>
+        {props.placeholder && (
+          <option value="" selected disabled>
+            {props.placeholder}
+          </option>
+        )}
+        {props.options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label || option.value}
+          </option>
+        ))}
+      </select>
+    </InputField>
   )
 }
 

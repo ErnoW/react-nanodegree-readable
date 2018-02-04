@@ -1,17 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import InputField from '../InputField'
+import styles from './Input.module.css'
 
-const Input = ({ field, ...props }) => {
-  const id = props.id || props.name
+const Input = ({ field, error, label, id, autoComplete, ...props }) => {
+  id = id || props.name
+  autoComplete = autoComplete || 'off'
 
   return (
-    <div className="field">
-      <label htmlFor={id}>
-        {props.label}
-        <input type="text" id={id} {...field} {...props} />
-      </label>
-      {props.error && <span>{props.error}</span>}
-    </div>
+    <InputField error={error} label={label} id={id}>
+      <input
+        className={styles.input}
+        type="text"
+        id={id}
+        {...field}
+        {...props}
+        autoComplete={autoComplete}
+      />
+    </InputField>
   )
 }
 

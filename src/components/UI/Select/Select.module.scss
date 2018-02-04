@@ -1,0 +1,15 @@
+@import '../../../styles/helpers/_variables.scss';
+
+.select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  line-height: $lh;
+  margin-bottom: $v-space / 2;
+  border: 0;
+  border-bottom: $border-thin solid $grey30;
+  border-radius: 0;
+  outline: none;
+  width: 100%;
+}

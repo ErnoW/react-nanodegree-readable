@@ -1,0 +1,57 @@
+@import '../../../styles/helpers/_variables.scss';
+
+.field {
+  margin-bottom: 2 * $v-space;
+}
+
+.label {
+  display: block;
+  color: $grey90;
+  margin-right: $h-space;
+  font-size: $fs-s;
+  font-weight: 600;
+}
+
+.group {
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+
+  & > *:not(.label) {
+    flex-grow: 1;
+  }
+
+  &.inline {
+    flex-direction: row;
+  }
+}
+
+.test {
+  padding: 500px;
+}
+
+.error {
+  $arrow-size: 10px;
+
+  display: inline-block;
+  color: $white;
+  background-color: $col-alert;
+  border-radius: $border-radius;
+  font-size: $fs-s;
+  padding: ($v-space / 2) ($h-space);
+  position: relative;
+  margin-top: $arrow-size;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: calc(50% - #{$arrow-size});
+    top: -$arrow-size;
+    border-left: $arrow-size solid transparent;
+    border-right: $arrow-size solid transparent;
+    border-bottom: $arrow-size solid $col-alert;
+  }
+}

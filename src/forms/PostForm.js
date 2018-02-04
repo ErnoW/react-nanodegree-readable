@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { withFormik, Form, Field } from 'formik'
 import Yup from 'yup'
 import { firstCap } from '../utils/format'
-import Input from '../components/Input'
-import TextArea from '../components/TextArea'
-import Select from '../components/Select'
-import Button from '../components/Button'
+import Input from '../components/UI/Input'
+import TextArea from '../components/UI/TextArea'
+import Select from '../components/UI/Select'
+import Button from '../components/UI/Button'
 import Notification from '../components/Notification'
 
 const PostForm = (props) => {
-  const { errors, touched, isSubmitting, isValid, handleReset, status } = props
+  const { errors, touched, isSubmitting, handleReset, status } = props
   return (
     <Form>
       {status && <Notification text={status} />}
@@ -43,7 +43,7 @@ const PostForm = (props) => {
         options={props.categories}
         error={touched.category && errors.category && firstCap(errors.category)}
       />
-      <Button type="submit" text="Submit" disabled={isSubmitting || !isValid} />
+      <Button type="submit" text="Submit" disabled={isSubmitting} />
       <Button type="reset" text="Reset" onClick={handleReset} />
     </Form>
   )

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { PostType } from '../utils/PropTypes'
 import { loadPosts, sortPosts } from '../actions'
 import PostSnippet from '../components/PostSnippet'
-import Select from '../components/Select'
+import Select from '../components/UI/Select'
 
 class PostList extends Component {
   static propTypes = {
