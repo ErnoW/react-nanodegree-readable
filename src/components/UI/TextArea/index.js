@@ -3,8 +3,8 @@ import React from 'react'
 import InputField from '../InputField'
 import styles from './TextArea.module.css'
 
-const TextArea = ({ field, error, label, id, ...props }) => {
-  id = id || props.name
+const TextArea = ({ field, error, label, id, name, inline, ...props }) => {
+  id = id || name
 
   return (
     <InputField error={error} label={label} id={id}>
@@ -14,9 +14,14 @@ const TextArea = ({ field, error, label, id, ...props }) => {
         id={id}
         {...field}
         {...props}
+        rows={props.rows}
       />
     </InputField>
   )
+}
+
+TextArea.defaultProps = {
+  rows: 5,
 }
 
 export default TextArea

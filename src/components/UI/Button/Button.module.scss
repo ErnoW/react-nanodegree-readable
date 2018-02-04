@@ -1,0 +1,27 @@
+@import '../../../styles/helpers/_variables.scss';
+
+.button {
+  background-color: $white;
+  border: $border-thin solid $col-dark;
+  color: $col-dark;
+  padding: ($v-space / 4) ($h-space);
+  border-radius: $border-radius;
+  transition: all $duration-fast;
+  margin-right: $h-space;
+  margin-bottom: $v-space;
+
+  &:hover {
+    background-color: $col-dark;
+    color: $white;
+  }
+}
+
+.submit {
+  background-color: $col-primary;
+  border-color: $col-primary;
+  color: $white;
+
+  &:hover {
+    border-color: $col-dark;
+  }
+}

@@ -23,6 +23,10 @@
 
   &.inline {
     flex-direction: row;
+
+    & > *:not(.label) {
+      width: auto;
+    }
   }
 }
 
@@ -38,7 +42,7 @@
   background-color: $col-alert;
   border-radius: $border-radius;
   font-size: $fs-s;
-  padding: ($v-space / 2) ($h-space);
+  padding: ($v-space / 4) ($h-space / 2);
   position: relative;
   margin-top: $arrow-size;
 

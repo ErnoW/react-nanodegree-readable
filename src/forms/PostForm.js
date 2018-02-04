@@ -15,6 +15,14 @@ const PostForm = (props) => {
     <Form>
       {status && <Notification text={status} />}
       <Field
+        component={Select}
+        name="category"
+        label="Category"
+        placeholder="What category does this post belong to?"
+        options={props.categories}
+        error={touched.category && errors.category && firstCap(errors.category)}
+      />
+      <Field
         component={Input}
         name="title"
         label="Title"
@@ -34,14 +42,6 @@ const PostForm = (props) => {
         label="Body"
         placeholder="Writy your post..."
         error={touched.body && errors.body && firstCap(errors.body)}
-      />
-      <Field
-        component={Select}
-        name="category"
-        label="Category"
-        placeholder="What category does this post belong to?"
-        options={props.categories}
-        error={touched.category && errors.category && firstCap(errors.category)}
       />
       <Button type="submit" text="Submit" disabled={isSubmitting} />
       <Button type="reset" text="Reset" onClick={handleReset} />

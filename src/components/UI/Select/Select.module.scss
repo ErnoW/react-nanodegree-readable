@@ -6,10 +6,16 @@
   appearance: none;
   background-color: transparent;
   line-height: $lh;
+  height: $lh;
   margin-bottom: $v-space / 2;
   border: 0;
   border-bottom: $border-thin solid $grey30;
   border-radius: 0;
   outline: none;
   width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: $col-primary;
+  }
 }

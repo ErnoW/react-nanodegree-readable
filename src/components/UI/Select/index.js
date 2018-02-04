@@ -1,13 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import InputField from '../InputField'
 import styles from './Select.module.css'
 
-const Select = ({ field, error, label, id, ...props }) => {
-  id = id || props.name
+const Select = ({ field, error, label, id, name, inline, ...props }) => {
+  id = id || name
 
   return (
-    <InputField error={error} label={label} id={id}>
+    <InputField error={error} label={label} id={id} inline={inline}>
       <select className={styles.select} id={id} {...field} {...props}>
         {props.placeholder && (
           <option value="" selected disabled>
@@ -24,29 +23,6 @@ const Select = ({ field, error, label, id, ...props }) => {
   )
 }
 
-Select.propTypes = {
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string,
-    }),
-  ).isRequired,
-  selected: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  disabled: PropTypes.bool,
-  error: PropTypes.string,
-}
-
-Select.defaultProps = {
-  placeholder: '',
-  id: '',
-  selected: null,
-  error: '',
-  disabled: false,
-}
+Select.defaultProps = {}
 
 export default Select

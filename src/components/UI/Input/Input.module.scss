@@ -9,6 +9,7 @@
   transition: border $duration-medium;
   outline: none;
   width: 100%;
+  height: $lh;
 
   &:focus {
     border-color: $col-primary;
