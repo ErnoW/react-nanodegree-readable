@@ -7,8 +7,8 @@ import { connect } from 'react-redux'
 import { PostType } from '../../utils/PropTypes'
 import { votePost } from '../../actions'
 import Vote from '../Vote'
-import { relativeDate } from '../../utils/format'
 import styles from './PostSnippet.module.css'
+import PostMeta from '../PostMeta'
 
 class PostSnippet extends Component {
   static propTypes = {
@@ -37,10 +37,15 @@ class PostSnippet extends Component {
         <Link to={`/post/${id}`}>
           <h2>{title}</h2>
         </Link>
+        <PostMeta
+          author={author}
+          className={styles.container}
+          comments={commentCount}
+          votes={voteScore}
+          timestamp={timestamp}
+          onVote={this.castVote}
+        />
         <p>{body}</p>
-        Author: {author} | Comments: {commentCount} | Votes: {voteScore} | Date:{' '}
-        {relativeDate(timestamp)}
-        <Vote onClick={this.castVote} />
       </div>
     )
   }
