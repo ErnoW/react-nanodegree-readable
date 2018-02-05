@@ -151,41 +151,7 @@ class Post extends Component {
           <Vote onClick={this.castPostVote} />
           <h2>Add new comment</h2>
           <NewComment parentId={id} />
-          {/* <div>
-            {this.state.isCreateComment ? (
-              <form onSubmit={this.handleSubmit}>
-                <Input
-                  name="author"
-                  label="Author"
-                  value={author}
-                  onChange={this.handleInputChange}
-                  placeholder="author"
-                  disabled={this.state.isPosting}
-                />
-                <TextArea
-                  name="comment"
-                  label="Post"
-                  value={comment}
-                  onChange={this.handleInputChange}
-                  placeholder="comment"
-                  disabled={this.state.isPosting}
-                />
-                <Button
-                  text="Create new comment"
-                  type="submit"
-                  disabled={this.state.isPosting}
-                />
-                <Button
-                  text="Cancel"
-                  type="reset"
-                  onClick={this.handleCommentReset}
-                  disabled={this.state.isPosting}
-                />
-              </form>
-            ) : (
-              <Button text="Add comment" onClick={this.showAddComment} />
-            )}
-          </div> */}
+
           <h3>Comments</h3>
           {hasErrorComments && <p>Error on loading comments</p>}
           {isFetchingComments && <p>Loading Comments...</p>}
