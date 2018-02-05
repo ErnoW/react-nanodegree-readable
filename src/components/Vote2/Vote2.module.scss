@@ -10,8 +10,8 @@
   }
 
   &:hover {
-    path:nth-child(2) {
-      fill: $grey50;
+    path {
+      fill: $col-primary;
       cursor: pointer;
     }
   }

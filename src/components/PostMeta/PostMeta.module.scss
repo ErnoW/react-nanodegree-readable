@@ -1,31 +1,32 @@
 @import '../../styles/helpers/_variables.scss';
 
-.meta {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: $v-space / 2;
-  color: $grey50;
-  font-size: $fs-s;
-}
-
 .container {
   display: flex;
+  align-items: baseline;
+  margin-bottom: $v-space / 2;
 
   & > * {
     flex: 1 1 0;
   }
 }
 
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  color: $grey50;
+  font-size: $fs-s;
+}
+
 .author {
   font-size: $fs;
   color: $col-dark;
-  margin-bottom: $v-space / 2;
 }
 
 .avatar {
   width: 50px;
   height: 50px;
-  fill: $col-dark;
+  fill: $c-primary;
   margin-right: $h-space / 4;
 }

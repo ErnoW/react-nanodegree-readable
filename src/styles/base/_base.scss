@@ -10,7 +10,8 @@ body {
   font-family: $ff-body;
 }
 
-a {
+a,
+a > * {
   color: $grey90;
   transition: all $duration-fast;
   border-bottom: $border-thin solid transparent;
