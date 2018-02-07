@@ -3,6 +3,9 @@
 .container {
   display: flex;
   align-items: baseline;
+  justify-content: space-between;
+  color: $grey50;
+  font-size: $fs-s;
   margin-bottom: $v-space / 2;
 
   & > * {
@@ -10,23 +13,21 @@
   }
 }
 
-.meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  color: $grey50;
-  font-size: $fs-s;
-}
+// .meta {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: baseline;
+//   flex-wrap: wrap;
+// }
 
-.author {
-  font-size: $fs;
-  color: $col-dark;
-}
+// .author {
+//   font-size: $fs;
+//   color: $col-dark;
+// }
 
-.avatar {
-  width: 50px;
-  height: 50px;
-  fill: $c-primary;
-  margin-right: $h-space / 4;
-}
+// .avatar {
+//   width: 50px;
+//   height: 50px;
+//   fill: $col-dark;
+//   margin-right: $h-space / 4;
+// }

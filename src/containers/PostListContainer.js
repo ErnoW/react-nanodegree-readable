@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { PostType } from '../utils/PropTypes'
-import { loadPosts, sortPosts } from '../actions'
-import PostSnippet from '../components/PostSnippet'
-import Select from '../components/UI/Select'
+import { loadPosts, sortPosts, votePost } from '../actions'
 import PostList from '../components/PostList'
 
 class PostListContainer extends Component {
@@ -38,10 +36,6 @@ class PostListContainer extends Component {
     }
   }
 
-  handleSort = (event) => {
-    this.props.sortPosts(event.target.value)
-  }
-
   render() {
     const { posts, fetchedPosts, isFetching, hasError, postsSort } = this.props
     const category = this.props.match.params.category
@@ -51,31 +45,20 @@ class PostListContainer extends Component {
       filteredPosts = fetchedPosts[category]
     }
 
-    //TODO: better error and loading handling
     return (
       <div className="container">
         {hasError && <p>Error</p>}
         {isFetching && filteredPosts.length === 0 && <p>Loading...</p>}
         {!isFetching && !hasError && filteredPosts.length === 0 && <p>Empty</p>}
         {filteredPosts.length > 0 && (
-          <div>
-            <Select
-              label="Sort posts:"
-              name="post-sort"
-              options={[
-                { value: 'timestamp', label: 'Date' },
-                { value: 'voteScore', label: 'Votes' },
-              ]}
-              selected={postsSort}
-              onChange={this.handleSort}
-              inline="true"
-            />
-            <PostList
-              posts={filteredPosts
-                .sort((a, b) => posts[b][postsSort] - posts[a][postsSort])
-                .map((postId) => posts[postId])}
-            />
-          </div>
+          <PostList
+            posts={filteredPosts
+              .sort((a, b) => posts[b][postsSort] - posts[a][postsSort])
+              .map((postId) => posts[postId])}
+            sortPosts={this.props.sortPosts}
+            sortedBy={this.props.postsSort}
+            votePost={this.props.votePost}
+          />
         )}
       </div>
     )
@@ -93,6 +76,7 @@ const mapStatetoProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadPosts: (category) => dispatch(loadPosts(category)),
   sortPosts: (sortOrder) => dispatch(sortPosts(sortOrder)),
+  votePost: (id, voteType) => dispatch(votePost(id, voteType)),
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(PostListContainer)
