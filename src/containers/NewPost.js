@@ -27,7 +27,7 @@ class NewPost extends Component {
     }))
 
     return (
-      <div class="container">
+      <div className="container">
         <PostForm handleSubmit={this.handleSubmit} categories={categories} />
       </div>
     )

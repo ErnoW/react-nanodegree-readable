@@ -1,11 +1,7 @@
 // TODO: Move to container or so?? Or make functional
 
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { PostType } from '../../utils/PropTypes'
-import { votePost } from '../../actions'
 import { relativeDate } from '../../utils/format'
 import { ReactComponent as SvgClock } from '../../assets/svgs/clock.svg'
 import { ReactComponent as SvgComments } from '../../assets/svgs/comments.svg'
@@ -24,7 +20,7 @@ class PostSnippet extends Component {
       voteScore,
       timestamp,
     } = this.props.post
-    const { onVote } = this.props
+    const { votePost } = this.props
 
     return (
       <div className={styles.container}>
@@ -39,7 +35,7 @@ class PostSnippet extends Component {
             {commentCount}
           </span>
           <span>
-            <Vote2 count={voteScore} onVote={() => onVote('upVote')} />
+            <Vote2 count={voteScore} onVote={() => votePost('upVote')} />
           </span>
           <span>
             <SvgClock className="icn" />

@@ -6,7 +6,6 @@ import Select from '../UI/Select'
 class PostList extends Component {
   render() {
     const { posts, sortPosts, sortedBy, votePost } = this.props
-    console.log(votePost)
 
     return (
       <div>
@@ -22,9 +21,12 @@ class PostList extends Component {
           inline="true"
         />
         <ul className={styles.list}>
-          {posts.map((post) => (
+          {posts.sort((a, b) => b[sortedBy] - a[sortedBy]).map((post) => (
             <li key={post.id}>
-              <PostSnippet post={post} onVote={(voteType) => votePost(post.id, voteType)} />
+              <PostSnippet
+                post={post}
+                votePost={(voteType) => votePost(post.id, voteType)}
+              />
             </li>
           ))}
         </ul>

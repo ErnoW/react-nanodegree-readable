@@ -6,6 +6,7 @@ import { loadCategories } from '../actions'
 import Navigation from './NavigationContainer'
 import PostList from './PostListContainer'
 import Post from './PostContainer'
+import CommentList from './CommentListContainer'
 import NewPost from './NewPost'
 import Home from './Home'
 import NotFound from './NotFound'
@@ -31,7 +32,12 @@ class App extends Component {
               exact
               component={PostList}
             />
-            <Route path="/post/:id" exact component={Post} />
+            <Route path="/post/:id" exact render={(props) => (
+              <div>
+                <Post {...props} />
+                <CommentList {...props} />
+              </div>
+            )} />
             <Route path="/newpost" exact component={NewPost} />
             <Route component={NotFound} />
           </Switch>
