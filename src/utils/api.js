@@ -78,7 +78,7 @@ export const callAPIMiddleware = (store) => (next) => (action) => {
     return next(action)
   }
 
-  const { endpoint, method, schema, types, shouldCallAPI, body } = callAPI
+  const { endpoint, method, schema, types, body } = callAPI
 
   if (typeof endpoint !== 'string') {
     throw new Error('Specify a string endpoint URL.')
@@ -94,10 +94,6 @@ export const callAPIMiddleware = (store) => (next) => (action) => {
 
   if (!types.every((type) => typeof type === 'string')) {
     throw new Error('Expected action types to be strings.')
-  }
-
-  if (shouldCallAPI !== undefined && !shouldCallAPI(store.getState())) {
-    return
   }
 
   const actionWith = (data) => {
