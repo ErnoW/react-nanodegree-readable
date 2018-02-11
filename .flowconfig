@@ -1,4 +1,7 @@
 [ignore]
+.*/node_modules/.*
+.*/build/.*
+.*/.storybook/.*
 
 [include]
 
@@ -7,5 +10,6 @@
 [lints]
 
 [options]
+all=true
 
 [strict]
