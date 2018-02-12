@@ -4,7 +4,19 @@ import uuidv1 from 'uuid/v1'
 import CommentForm from '../forms/CommentForm'
 import { createComment } from '../actions/index'
 
-class NewComment extends Component {
+type Props = {
+  parentId: string,
+  categories: Array<{ name: string }>,
+  createComment: ({
+    id: string,
+    timestamp: number,
+    parentId: string,
+    body: string,
+    author: string,
+  }) => mixed,
+}
+
+class NewComment extends Component<Props> {
   handleSubmit = (values) =>
     this.props.createComment({
       id: uuidv1(),

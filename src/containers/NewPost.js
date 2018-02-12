@@ -5,7 +5,19 @@ import uuidv1 from 'uuid/v1'
 import PostForm from '../forms/PostForm'
 import { createPost } from '../actions/index'
 
-class NewPost extends Component {
+type Props = {
+  push: (path: string) => mixed,
+  categories: Array<{ name: string }>,
+  createPost: ({
+    id: string,
+    timestamp: number,
+    title: string,
+    body: string,
+    author: string,
+    category: string,
+  }) => Promise<any>,
+}
+class NewPost extends Component<Props> {
   handleSubmit = (values) => {
     const id = uuidv1()
 

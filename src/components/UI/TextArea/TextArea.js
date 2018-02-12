@@ -1,10 +1,22 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
 import InputField from '../InputField'
 import styles from './TextArea.module.css'
+import type { FieldType } from '../../../types/components'
 
-const TextArea = ({ field, error, label, id, name, inline, ...props }) => {
-  id = id || name
+type Props = {
+  name: string,
+  id?: string,
+  label: string,
+  placeholder: string,
+  rows: number,
+  error: string,
+  field: FieldType,
+}
+
+const TextArea = (props: Props) => {
+  const { label, placeholder, rows, error, field } = props
+  const name = props.name || field.name
+  const id = props.id || name
 
   return (
     <InputField error={error} label={label} id={id}>
@@ -12,9 +24,9 @@ const TextArea = ({ field, error, label, id, name, inline, ...props }) => {
         className={styles.textarea}
         type="text"
         id={id}
+        rows={rows}
+        placeholder={placeholder}
         {...field}
-        {...props}
-        rows={props.rows}
       />
     </InputField>
   )

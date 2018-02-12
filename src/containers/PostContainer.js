@@ -2,8 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loadPost, votePost } from '../actions'
 import Post from '../components/Post'
+import type { PostType } from '../types/data'
 
-class PostContainer extends Component {
+type Props = {
+  match: { params: { id: string } },
+  loadPost: (id: string) => mixed,
+  hasError: boolean,
+  isFetching: boolean,
+  post: PostType,
+  votePost: () => mixed,
+}
+
+class PostContainer extends Component<Props> {
   componentDidMount() {
     this.props.loadPost(this.props.match.params.id)
   }

@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { withFormik, Form, Field } from 'formik'
 import Yup from 'yup'
 import { firstCap } from '../utils/format'
@@ -8,7 +7,15 @@ import TextArea from '../components/UI/TextArea'
 import Button from '../components/UI/Button'
 import Notification from '../components/Notification'
 
-const PostForm = (props) => {
+type Props = {
+  errors: string,
+  touched: boolean,
+  isSubmitting: boolean,
+  handleReset: () => mixed,
+  status: string,
+}
+
+const PostForm = (props: Props) => {
   const { errors, touched, isSubmitting, handleReset, status } = props
   return (
     <Form>
@@ -31,13 +38,6 @@ const PostForm = (props) => {
       <Button type="reset" text="Reset" onClick={handleReset} />
     </Form>
   )
-}
-
-PostForm.propTypes = {
-  errors: PropTypes.objectOf(PropTypes.string).isRequired,
-  touched: PropTypes.objectOf(PropTypes.bool).isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
-  status: PropTypes.string,
 }
 
 PostForm.defaultProps = {

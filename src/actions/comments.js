@@ -1,11 +1,12 @@
 import { schemas } from '../utils/api'
+import type { CommentType } from '../types/data'
 
 export const COMMENTS_REQUEST = 'COMMENTS_REQUEST'
 export const COMMENTS_SUCCESS = 'COMMENTS_SUCCESS'
 export const COMMENTS_ERROR = 'COMMENTS_ERROR'
 
 // Load all comments of an post
-export const loadComments = (id) => ({
+export const loadComments = (id: string) => ({
   id,
   callAPI: {
     types: [COMMENTS_REQUEST, COMMENTS_SUCCESS, COMMENTS_ERROR],
@@ -20,7 +21,7 @@ export const COMMENT_CREATE_REQUEST = 'COMMENT_CREATE_REQUEST'
 export const COMMENT_CREATE_SUCCESS = 'COMMENT_CREATE_SUCCESS'
 export const COMMENT_CREATE_ERROR = 'COMMENT_CREATE_ERROR'
 
-export const createComment = (comment) => ({
+export const createComment = (comment: CommentType) => ({
   comment,
   callAPI: {
     types: [
@@ -40,7 +41,7 @@ export const COMMENT_VOTE_REQUEST = 'COMMENT_VOTE_REQUEST'
 export const COMMENT_VOTE_SUCCESS = 'COMMENT_VOTE_SUCCESS'
 export const COMMENT_VOTE_ERROR = 'COMMENT_VOTE_ERROR'
 
-export const voteComment = (id, vote) => ({
+export const voteComment = (id: string, vote: string) => ({
   id,
   vote,
   callAPI: {
@@ -55,7 +56,7 @@ export const voteComment = (id, vote) => ({
 // Change sort order of comments
 export const COMMENTS_CHANGE_SORT = 'COMMENTS_CHANGE_SORT'
 
-export const sortComments = (sortOrder) => ({
+export const sortComments = (sortOrder: string) => ({
   type: COMMENTS_CHANGE_SORT,
   sortOrder,
 })

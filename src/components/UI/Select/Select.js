@@ -1,19 +1,36 @@
 import React from 'react'
 import InputField from '../InputField'
 import styles from './Select.module.css'
+import type { FieldType } from '../../../types/components'
 
-const Select = ({
-  field,
-  error,
-  label,
-  id,
-  name,
-  inline,
-  onChange,
-  selected,
-  ...props
-}) => {
-  id = id || name
+type Props = {
+  name: string,
+  id?: string,
+  label: string,
+  placeholder?: string,
+  onChange?: (SyntheticInputEvent<EventTarget>) => mixed,
+  selected?: string,
+  error?: string,
+  inline?: boolean,
+  field?: FieldType,
+  options: Array<{ value: string, label: string }>,
+}
+
+const Select = (props: Props) => {
+  const {
+    name,
+    label,
+    placeholder,
+    error,
+    options,
+    selected,
+    inline,
+    field,
+  } = props
+
+  // $FlowFixMe Assume onChange or field.onChange is defined
+  const onChange = props.onChange || field.onChange
+  const id = props.id || name
 
   return (
     <InputField error={error} label={label} id={id} inline={inline}>
@@ -23,15 +40,14 @@ const Select = ({
         value={selected}
         onChange={(event) => onChange(event.target.value)}
         {...field}
-        {...props}
       >
-        {props.placeholder &&
+        {placeholder &&
           !selected && (
-            <option value="" selected disabled>
-              {props.placeholder}
+            <option value="" disabled>
+              {placeholder}
             </option>
           )}
-        {props.options.map((option) => (
+        {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label || option.value}
           </option>
@@ -40,7 +56,5 @@ const Select = ({
     </InputField>
   )
 }
-
-Select.defaultProps = {}
 
 export default Select

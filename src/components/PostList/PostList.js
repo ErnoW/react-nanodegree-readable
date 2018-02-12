@@ -1,38 +1,43 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PostSnippet from '../PostSnippet'
 import styles from './PostList.module.css'
 import Select from '../UI/Select'
+import type { PostType } from '../../types/data'
 
-class PostList extends Component {
-  render() {
-    const { posts, sortPosts, sortedBy, votePost } = this.props
+type Props = {
+  posts: Array<PostType>,
+  sortPosts: () => mixed,
+  sortedBy: string,
+  votePost: (id: string, voteType: string) => mixed,
+}
 
-    return (
-      <div>
-        <Select
-          label="Sort posts:"
-          name="post-sort"
-          options={[
-            { value: 'timestamp', label: 'Date' },
-            { value: 'voteScore', label: 'Votes' },
-          ]}
-          selected={sortedBy}
-          onChange={sortPosts}
-          inline="true"
-        />
-        <ul className={styles.list}>
-          {posts.sort((a, b) => b[sortedBy] - a[sortedBy]).map((post) => (
-            <li key={post.id}>
-              <PostSnippet
-                post={post}
-                votePost={(voteType) => votePost(post.id, voteType)}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
+const PostList = (props: Props) => {
+  const { posts, sortPosts, sortedBy, votePost } = props
+  return (
+    <div>
+      <Select
+        label="Sort posts:"
+        name="post-sort"
+        options={[
+          { value: 'timestamp', label: 'Date' },
+          { value: 'voteScore', label: 'Votes' },
+        ]}
+        selected={sortedBy}
+        onChange={sortPosts}
+        inline={true}
+      />
+      <ul className={styles.list}>
+        {posts.sort((a, b) => b[sortedBy] - a[sortedBy]).map((post) => (
+          <li key={post.id}>
+            <PostSnippet
+              post={post}
+              votePost={(voteType) => votePost(post.id, voteType)}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 
 export default PostList

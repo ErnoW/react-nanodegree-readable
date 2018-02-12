@@ -1,6 +1,10 @@
 import React from 'react'
 
-const Notification = (props) => {
+type Props = {
+  text: string,
+}
+
+const Notification = (props: Props) => {
   return props.text && <div>{props.text}</div>
 }
 

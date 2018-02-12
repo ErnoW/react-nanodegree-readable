@@ -1,19 +1,32 @@
-import React from 'react'
+import * as React from 'react'
 import styles from './InputField.module.css'
 
-const InputField = (props) => {
+type Props = {
+  id: string,
+  label: string,
+  error?: string,
+  inline?: boolean,
+  children?: React.Node,
+}
+
+const InputField = (props: Props) => {
+  const { id, label, error, inline } = props
   return (
     <div className={styles.field}>
       <label
-        className={`${styles.group} ${props.inline && styles.inline}`}
-        htmlFor={props.id}
+        className={`${styles.group} ${inline === true ? styles.inline : ''}`}
+        htmlFor={id}
       >
-        <span className={styles.label}>{props.label}</span>
+        <span className={styles.label}>{label}</span>
         {props.children}
       </label>
-      {props.error && <span className={styles.error}>{props.error}</span>}
+      {error && <span className={styles.error}>{error}</span>}
     </div>
   )
+}
+
+InputField.defaultProps = {
+  inline: false,
 }
 
 export default InputField

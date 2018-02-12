@@ -2,8 +2,25 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loadPosts, sortPosts, votePost } from '../actions'
 import PostList from '../components/PostList'
+import type { PostType } from '../types/data'
 
-class PostListContainer extends Component {
+type Props = {
+  match: { params: { category: string } },
+  loadPosts: (category: string) => mixed,
+  hasError: boolean,
+  isFetching: boolean,
+  allPosts: { [string]: PostType },
+  postIds: Array<string>,
+  sortedBy: string,
+  sortPosts: () => mixed,
+  votePost: () => mixed,
+}
+
+class PostListContainer extends Component<Props> {
+  static defaultProps = {
+    postIds: [],
+  }
+
   componentDidMount() {
     this.props.loadPosts(this.props.match.params.category)
   }
@@ -42,10 +59,6 @@ class PostListContainer extends Component {
       </div>
     )
   }
-}
-
-PostListContainer.defaultProps = {
-  postIds: [],
 }
 
 const mapStatetoProps = (state, ownProps) => ({

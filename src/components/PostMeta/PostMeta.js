@@ -1,7 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 import styles from './PostMeta.module.css'
 
-const PostMeta = (props) => {
+type Props = {
+  children?: React.Node,
+}
+
+const PostMeta = (props: Props) => {
   return <div className={styles.container}>{props.children}</div>
 }
 

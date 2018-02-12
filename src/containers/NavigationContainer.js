@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CategoryType } from '../utils/PropTypes'
 import Navigation from '../components/Navigation'
+import type { StoreType } from '../types/store'
 
-class NavigationContainer extends Component {
-  static propTypes = {
-    categories: PropTypes.arrayOf(CategoryType).isRequired,
-  }
+type Props = {
+  categories: Array<{ name: string, path: string }>,
+}
+class NavigationContainer extends Component<Props> {
   render() {
     const links = [
       {
@@ -32,7 +31,7 @@ class NavigationContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: StoreType): * => ({
   categories: state.categories,
 })
 

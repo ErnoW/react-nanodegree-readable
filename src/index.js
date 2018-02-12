@@ -7,18 +7,17 @@ import Root from './containers/Root'
 
 const store = configureStore()
 
-ReactDOM.render(
-  <Root store={store} history={history} />,
-  document.getElementById('root'),
-)
+var root = document.getElementById('root')
+if (root === null) {
+  throw new Error('Could not find root')
+}
+
+ReactDOM.render(<Root store={store} history={history} />, root)
 
 // Hot reloading
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {
-    ReactDOM.render(
-      <Root store={store} history={history} />,
-      document.getElementById('root'),
-    )
+    ReactDOM.render(<Root store={store} history={history} />, root)
   })
 }
 

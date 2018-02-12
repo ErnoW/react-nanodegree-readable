@@ -1,18 +1,23 @@
 import React from 'react'
 import InputField from '../InputField'
 import styles from './Input.module.css'
+import type { FieldType } from '../../../types/components'
 
-const Input = ({
-  field,
-  error,
-  label,
-  id,
-  autoComplete,
-  inline,
-  name,
-  ...props
-}) => {
-  id = id || name
+type Props = {
+  name: string,
+  id?: string,
+  label: string,
+  placeholder: string,
+  error: string,
+  autoComplete: boolean,
+  inline: boolean,
+  field: FieldType,
+}
+
+const Input = (props: Props) => {
+  const { label, placeholder, error, autoComplete, inline, field } = props
+  const name = props.name || field.name
+  const id = props.id || name
 
   return (
     <InputField error={error} label={label} id={id} inline={inline}>
@@ -20,9 +25,10 @@ const Input = ({
         className={styles.input}
         type="text"
         id={id}
-        {...field}
-        {...props}
+        name={name}
         autoComplete={autoComplete}
+        placeholder={placeholder}
+        {...field}
       />
     </InputField>
   )

@@ -2,8 +2,25 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loadComments, voteComment, sortComments } from '../actions'
 import CommentList from '../components/CommentList'
+import type { CommentType } from '../types/data'
 
-class CommentListContainer extends Component {
+type Props = {
+  loadComments: (id: string) => mixed,
+  voteComment: () => mixed,
+  sortComments: () => mixed,
+  match: { params: { id: string } },
+  hasError: boolean,
+  isFetching: boolean,
+  allComments: { [string]: CommentType },
+  commentIds: Array<string>,
+  sortedBy: string,
+}
+
+class CommentListContainer extends Component<Props> {
+  static defaultProps = {
+    commentsIds: [],
+  }
+
   componentDidMount() {
     this.props.loadComments(this.props.match.params.id)
   }
@@ -37,10 +54,6 @@ class CommentListContainer extends Component {
       </div>
     )
   }
-}
-
-CommentListContainer.defaultProps = {
-  commentsIds: [],
 }
 
 const mapDispatchToProps = (dispatch) => ({

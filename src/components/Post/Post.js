@@ -1,12 +1,19 @@
 import React from 'react'
 import PostMeta from '../PostMeta'
+// $FlowFixMe Error with Create React App creating ReactComponent
 import { ReactComponent as SvgClock } from '../../assets/svgs/clock.svg'
+// $FlowFixMe Error with Create React App creating ReactComponent
 import { ReactComponent as SvgComments } from '../../assets/svgs/comments.svg'
-import Vote2 from '../Vote2'
+import Vote from '../Vote'
 import { relativeDate } from '../../utils/format'
+import type { PostType } from '../../types/data'
 
-const Post = (props) => {
-  console.log(props)
+type Props = {
+  post: PostType,
+  votePost: (id: string, voteType: string) => mixed,
+}
+
+const Post = (props: Props) => {
   const {
     id,
     author,
@@ -28,7 +35,7 @@ const Post = (props) => {
           {commentCount}
         </span>
         <span>
-          <Vote2 count={voteScore} onVote={() => votePost(id, 'upVote')} />
+          <Vote count={voteScore} onVote={() => votePost(id, 'upVote')} />
         </span>
         <span>
           <SvgClock className="icn" />

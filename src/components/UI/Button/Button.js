@@ -1,12 +1,15 @@
 import React from 'react'
 import styles from './Button.module.css'
 
-const Button = (
-  type: string,
+type Props = {
+  type: 'button' | 'submit' | 'reset',
   disabled: boolean,
   text: string,
   onClick?: () => mixed,
-) => {
+}
+
+const Button = (props: Props) => {
+  const { type, disabled, text, onClick } = props
   return (
     <button
       className={`${styles.button} ${type === 'submit' ? styles.submit : ''}`}
