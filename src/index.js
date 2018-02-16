@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+// $FlowFixMe: Ignoring registerServiceWorker
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 import configureStore, { history } from './configureStore'
