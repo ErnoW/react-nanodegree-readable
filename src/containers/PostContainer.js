@@ -20,12 +20,7 @@ type Props = {
 
 class PostContainer extends Component<Props> {
   componentDidMount() {
-    this.props.loadPost(this.props.match.params.id).then((response) => {
-      // Handle deleted posts
-      if (response.payload.result === undefined) {
-        console.log('nope')
-      }
-    })
+    this.props.loadPost(this.props.match.params.id)
   }
 
   handleDelete = (id) =>
