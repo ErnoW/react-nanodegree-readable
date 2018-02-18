@@ -40,7 +40,7 @@ const PostSnippet = (props: Props) => {
           {commentCount}
         </span>
         <span>
-          <Vote count={voteScore} onVote={() => votePost('upVote')} />
+          <Vote count={voteScore} onVote={(voteType) => votePost(voteType)} />
         </span>
         <span>
           <SvgClock className="icn" />

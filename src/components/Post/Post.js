@@ -52,7 +52,10 @@ class Post extends Component<Props> {
             {commentCount}
           </span>
           <span>
-            <Vote count={voteScore} onVote={() => votePost(id, 'upVote')} />
+            <Vote
+              count={voteScore}
+              onVote={(voteType) => votePost(id, voteType)}
+            />
           </span>
           <span>
             <SvgClock className="icn" />

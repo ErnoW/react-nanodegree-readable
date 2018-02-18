@@ -13,7 +13,7 @@ class Comment extends Component {
     return this.props
       .editComment(this.props.comment.id, {
         body: values.comment,
-        // timeStamp: Date.now,
+        timeStamp: Date.now,
       })
       .then(() => {
         this.setState({ editMode: false })
@@ -40,7 +40,10 @@ class Comment extends Component {
             <Button text="Delete" onClick={() => deleteComment(id)} />
           </Fragment>
         )}
-        <Vote onVote={() => voteComment(id, 'upVote')} count={voteScore} />
+        <Vote
+          onVote={(voteType) => voteComment(id, voteType)}
+          count={voteScore}
+        />
       </div>
     )
   }
