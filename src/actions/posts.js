@@ -47,6 +47,37 @@ export const createPost = (post: PostType) => ({
   },
 })
 
+// Edit a post
+export const POST_EDIT_REQUEST = 'POST_EDIT_REQUEST'
+export const POST_EDIT_SUCCESS = 'POST_EDIT_SUCCESS'
+export const POST_EDIT_ERROR = 'POST_EDIT_ERROR'
+
+export const editPost = (id: String, post: PostType) => ({
+  id,
+  post,
+  callAPI: {
+    types: [POST_EDIT_REQUEST, POST_EDIT_SUCCESS, POST_EDIT_ERROR],
+    method: 'PUT',
+    body: post,
+    schema: schemas.post,
+    endpoint: `posts/${id}`,
+  },
+})
+
+// Delete a post
+export const POST_DELETE_REQUEST = 'POST_DELETE_REQUEST'
+export const POST_DELETE_SUCCESS = 'POST_DELETE_SUCCESS'
+export const POST_DELETE_ERROR = 'POST_DELETE_ERROR'
+
+export const deletePost = (id: String) => ({
+  id,
+  callAPI: {
+    types: [POST_DELETE_REQUEST, POST_DELETE_SUCCESS, POST_DELETE_ERROR],
+    method: 'DELETE',
+    endpoint: `posts/${id}`,
+  },
+})
+
 // Vote a post
 export const POST_VOTE_REQUEST = 'POST_VOTE_REQUEST'
 export const POST_VOTE_SUCCESS = 'POST_VOTE_SUCCESS'

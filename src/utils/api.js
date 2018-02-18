@@ -70,6 +70,44 @@ const apiPost = (endpoint, schema, body) => {
     })
 }
 
+const apiPut = (endpoint, schema, body) => {
+  return fetch(`${API_ROOT}/${endpoint}`, {
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+    body: JSON.stringify(body),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText)
+      }
+      return response.json()
+    })
+    .then((json) => {
+      if (schema) {
+        return normalize(json, schema)
+      }
+      return json
+    })
+}
+
+const apiDelete = (endpoint) => {
+  return fetch(`${API_ROOT}/${endpoint}`, {
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    method: 'DELETE',
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText)
+    }
+    return response.json()
+  })
+}
+
 // Middleware for api calls
 export const callAPIMiddleware = (store) => (next) => (action) => {
   const callAPI = action.callAPI
@@ -84,7 +122,12 @@ export const callAPIMiddleware = (store) => (next) => (action) => {
     throw new Error('Specify a string endpoint URL.')
   }
 
-  if (method !== 'GET' && method !== 'POST' && method !== 'POST') {
+  if (
+    method !== 'GET' &&
+    method !== 'POST' &&
+    method !== 'PUT' &&
+    method !== 'DELETE'
+  ) {
     throw new Error('Use a valid request type.')
   }
 
@@ -109,6 +152,10 @@ export const callAPIMiddleware = (store) => (next) => (action) => {
   let apicall
   if (method === 'GET') {
     apicall = apiGet(endpoint, schema)
+  } else if (method === 'PUT') {
+    apicall = apiPut(endpoint, schema, body)
+  } else if (method === 'DELETE') {
+    apicall = apiDelete(endpoint)
   } else {
     apicall = apiPost(endpoint, schema, body)
   }

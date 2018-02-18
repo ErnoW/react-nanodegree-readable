@@ -5,26 +5,26 @@ import CommentForm from '../forms/CommentForm'
 import { createComment } from '../actions/index'
 
 type Props = {
-  parentId: string,
   categories: Array<{ name: string }>,
   createComment: ({
     id: string,
     timestamp: number,
-    parentId: string,
     body: string,
     author: string,
   }) => mixed,
 }
 
 class NewComment extends Component<Props> {
-  handleSubmit = (values) =>
-    this.props.createComment({
+  handleSubmit = (values) => {
+    console.log(this.props)
+    return this.props.createComment({
       id: uuidv1(),
       timestamp: Date.now(),
-      parentId: this.props.parentId,
+      parentId: this.props.match.params.id,
       body: values.comment,
       author: values.author,
     })
+  }
 
   render() {
     const categories = this.props.categories.map((category) => ({
@@ -32,7 +32,10 @@ class NewComment extends Component<Props> {
     }))
 
     return (
-      <CommentForm handleSubmit={this.handleSubmit} categories={categories} />
+      <div className="container">
+        <h2>Add a new comment</h2>
+        <CommentForm handleSubmit={this.handleSubmit} categories={categories} />
+      </div>
     )
   }
 }

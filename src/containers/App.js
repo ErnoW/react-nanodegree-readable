@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 import { Route, Switch, withRouter } from 'react-router-dom'
@@ -7,6 +7,7 @@ import Navigation from './NavigationContainer'
 import PostList from './PostListContainer'
 import Post from './PostContainer'
 import CommentList from './CommentListContainer'
+import NewComment from './NewComment'
 import NewPost from './NewPost'
 import Home from './Home'
 import NotFound from './NotFound'
@@ -31,10 +32,11 @@ class App extends Component<Props> {
               path="/post/:id"
               exact
               render={(props) => (
-                <div>
+                <Fragment>
                   <Post {...props} />
+                  <NewComment {...props} />
                   <CommentList {...props} />
-                </div>
+                </Fragment>
               )}
             />
             <Route path="/newpost" exact component={NewPost} />

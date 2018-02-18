@@ -3,6 +3,7 @@ import {
   COMMENTS_ERROR,
   COMMENTS_SUCCESS,
   COMMENT_CREATE_SUCCESS,
+  COMMENT_DELETE_SUCCESS,
 } from '../actions'
 
 const initialState = {
@@ -36,6 +37,11 @@ const displayComments = (state = initialState, action) => {
       return {
         ...state,
         comments: [...state.comments, action.payload.result],
+      }
+    case COMMENT_DELETE_SUCCESS:
+      return {
+        ...state,
+        comments: state.comments.filter((comment) => comment !== action.id),
       }
     default:
       return state

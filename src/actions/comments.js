@@ -36,6 +36,41 @@ export const createComment = (comment: CommentType) => ({
   },
 })
 
+// Edit a comment
+export const COMMENT_EDIT_REQUEST = 'COMMENT_EDIT_REQUEST'
+export const COMMENT_EDIT_SUCCESS = 'COMMENT_EDIT_SUCCESS'
+export const COMMENT_EDIT_ERROR = 'COMMENT_EDIT_ERROR'
+
+export const editComment = (id: string, comment: CommentType) => ({
+  id,
+  comment,
+  callAPI: {
+    types: [COMMENT_EDIT_REQUEST, COMMENT_EDIT_SUCCESS, COMMENT_EDIT_ERROR],
+    method: 'PUT',
+    body: comment,
+    schema: schemas.comment,
+    endpoint: `comments/${id}`,
+  },
+})
+
+// Delete a comment
+export const COMMENT_DELETE_REQUEST = 'COMMENT_DELETE_REQUEST'
+export const COMMENT_DELETE_SUCCESS = 'COMMENT_DELETE_SUCCESS'
+export const COMMENT_DELETE_ERROR = 'COMMENT_DELETE_ERROR'
+
+export const deleteComment = (id: string) => ({
+  id,
+  callAPI: {
+    types: [
+      COMMENT_DELETE_REQUEST,
+      COMMENT_DELETE_SUCCESS,
+      COMMENT_DELETE_ERROR,
+    ],
+    method: 'DELETE',
+    endpoint: `comments/${id}`,
+  },
+})
+
 // Vote a comment
 export const COMMENT_VOTE_REQUEST = 'COMMENT_VOTE_REQUEST'
 export const COMMENT_VOTE_SUCCESS = 'COMMENT_VOTE_SUCCESS'

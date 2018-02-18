@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PostMeta from '../PostMeta'
+import { push } from 'react-router-redux'
 // $FlowFixMe Error with Create React App creating ReactComponent
 import { ReactComponent as SvgClock } from '../../assets/svgs/clock.svg'
 // $FlowFixMe Error with Create React App creating ReactComponent
@@ -8,19 +9,25 @@ import Vote from '../Vote'
 import { relativeDate } from '../../utils/format'
 import type { PostType } from '../../types/data'
 import Button from '../UI/Button'
-import PostForm from '../../forms/PostForm'
+import PostEditForm from '../../forms/PostEditForm'
 type Props = {
   post: PostType,
   votePost: (id: string, voteType: string) => mixed,
+  deletePost: (id: string) => mixed,
 }
 
 class Post extends Component<Props> {
   state = { editMode: false }
 
-  handleSubmit = () => {
-    return new Promise((resolve, reject) => {
-      this.setState({ editMode: false })
-    })
+  handleSubmit = (values) => {
+    return this.props
+      .editPost(this.props.post.id, {
+        title: values.title,
+        body: values.body,
+      })
+      .then(() => {
+        this.setState({ editMode: false })
+      })
   }
 
   render() {
@@ -33,13 +40,7 @@ class Post extends Component<Props> {
       voteScore,
       timestamp,
     } = this.props.post
-    const { votePost } = this.props
-
-    //test
-    const category = 'react'
-
-    //test
-    const categories = [{ value: 'react' }]
+    const { votePost, deletePost } = this.props
 
     return (
       <div>
@@ -61,15 +62,13 @@ class Post extends Component<Props> {
             onClick={() => this.setState({ editMode: true })}
             text="Edit"
           />
+          <Button onClick={() => deletePost(id)} text="Delete" />
         </PostMeta>
         {this.state.editMode ? (
-          <PostForm
-            author={author}
+          <PostEditForm
             body={body}
-            category={category}
             title={title}
             handleSubmit={this.handleSubmit}
-            categories={categories}
           />
         ) : (
           <p>{body}</p>

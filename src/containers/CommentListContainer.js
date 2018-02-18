@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadComments, voteComment, sortComments } from '../actions'
+import {
+  loadComments,
+  voteComment,
+  editComment,
+  deleteComment,
+  sortComments,
+} from '../actions'
 import CommentList from '../components/CommentList'
 import type { CommentType } from '../types/data'
 
@@ -34,6 +40,8 @@ class CommentListContainer extends Component<Props> {
       sortedBy,
       sortComments,
       voteComment,
+      editComment,
+      deleteComment,
     } = this.props
     const comments = commentIds.map((id) => allComments[id])
 
@@ -49,6 +57,8 @@ class CommentListContainer extends Component<Props> {
               sortComments={sortComments}
               sortedBy={sortedBy}
               voteComment={voteComment}
+              editComment={editComment}
+              deleteComment={deleteComment}
             />
           )}
       </div>
@@ -59,6 +69,8 @@ class CommentListContainer extends Component<Props> {
 const mapDispatchToProps = (dispatch) => ({
   loadComments: (id) => dispatch(loadComments(id)),
   voteComment: (id, vote) => dispatch(voteComment(id, vote)),
+  editComment: (id, comment) => dispatch(editComment(id, comment)),
+  deleteComment: (id) => dispatch(deleteComment(id)),
   sortComments: (sortOrder) => dispatch(sortComments(sortOrder)),
 })
 
