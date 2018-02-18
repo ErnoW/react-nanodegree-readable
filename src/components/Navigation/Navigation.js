@@ -11,7 +11,7 @@ const Navigation = (props: Props) => {
   return (
     <nav className={styles.navigation}>
       <div>
-        <span>Home</span>
+        <span>Readable</span>
       </div>
       <ul className={styles.menu}>
         {links.map((link) => (
