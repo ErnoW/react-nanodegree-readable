@@ -40,6 +40,7 @@ class NewPost extends Component<Props> {
 
     return (
       <div className="container">
+        <h1>Create a new post</h1>
         <PostForm handleSubmit={this.handleSubmit} categories={categories} />
       </div>
     )

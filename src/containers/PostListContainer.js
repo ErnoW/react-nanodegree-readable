@@ -42,12 +42,14 @@ class PostListContainer extends Component<Props> {
       votePost,
     } = this.props
     const posts = postIds.map((postId) => allPosts[postId])
+    const category = this.props.match.params.category
 
     return (
       <div className="container">
+        <h1>{category}</h1>
         {hasError && <p>Error</p>}
         {isFetching && posts.length === 0 && <p>Loading...</p>}
-        {!isFetching && posts.length === 0 && <p>Empty</p>}
+        {!isFetching && posts.length === 0 && <p>No posts</p>}
         {posts.length !== 0 && (
           <PostList
             posts={posts}
