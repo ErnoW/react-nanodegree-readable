@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+import { Redirect } from 'react-router'
 import { loadPost, editPost, deletePost, votePost } from '../actions'
 import Post from '../components/Post'
 import type { PostType } from '../types/data'
@@ -40,7 +41,7 @@ class PostContainer extends Component<Props> {
 
     return (
       <div className="container">
-        {hasError && <p>Post not found</p>}
+        {hasError && <Redirect to="/404" />}
         {isFetching && typeof post === 'undefined' && <p>Loading...</p>}
         {!hasError &&
           typeof post !== 'undefined' && (

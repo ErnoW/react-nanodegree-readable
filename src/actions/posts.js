@@ -16,6 +16,16 @@ export const loadPosts = (category: string) => ({
   },
 })
 
+// Load all posts
+export const loadAllPosts = () => ({
+  callAPI: {
+    types: [POSTS_REQUEST, POSTS_SUCCESS, POSTS_ERROR],
+    method: 'GET',
+    schema: schemas.postList,
+    endpoint: 'posts',
+  },
+})
+
 // Load an single post
 export const POST_REQUEST = 'POST_REQUEST'
 export const POST_SUCCESS = 'POST_SUCCESS'

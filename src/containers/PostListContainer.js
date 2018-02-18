@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadPosts, sortPosts, votePost } from '../actions'
+import { loadAllPosts, loadPosts, sortPosts, votePost } from '../actions'
 import PostList from '../components/PostList'
 import type { PostType } from '../types/data'
 
@@ -14,6 +14,7 @@ type Props = {
   sortedBy: string,
   sortPosts: () => mixed,
   votePost: () => mixed,
+  loadAllPosts: () => mixed,
 }
 
 class PostListContainer extends Component<Props> {
@@ -22,12 +23,20 @@ class PostListContainer extends Component<Props> {
   }
 
   componentDidMount() {
-    this.props.loadPosts(this.props.match.params.category)
+    if (!this.props.match.params.category) {
+      this.props.loadAllPosts()
+    } else {
+      this.props.loadPosts(this.props.match.params.category)
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.category !== prevProps.match.params.category) {
-      this.props.loadPosts(this.props.match.params.category)
+      if (!this.props.match.params.category) {
+        this.props.loadAllPosts()
+      } else {
+        this.props.loadPosts(this.props.match.params.category)
+      }
     }
   }
 
@@ -42,11 +51,10 @@ class PostListContainer extends Component<Props> {
       votePost,
     } = this.props
     const posts = postIds.map((postId) => allPosts[postId])
-    const category = this.props.match.params.category
 
     return (
       <div className="container">
-        <h1>{category}</h1>
+        <h1>{this.props.match.params.category || 'Home'}</h1>
         {hasError && <p>Error</p>}
         {isFetching && posts.length === 0 && <p>Loading...</p>}
         {!isFetching && posts.length === 0 && <p>No posts</p>}
@@ -73,6 +81,7 @@ const mapStatetoProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadPosts: (category) => dispatch(loadPosts(category)),
+  loadAllPosts: () => dispatch(loadAllPosts()),
   sortPosts: (sortOrder) => dispatch(sortPosts(sortOrder)),
   votePost: (id, voteType) => dispatch(votePost(id, voteType)),
 })

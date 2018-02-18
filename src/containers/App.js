@@ -24,7 +24,7 @@ class App extends Component<Props> {
         <Navigation />
         <main className="main-content">
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact component={PostList} />
             <Route path="/category/:category" exact component={PostList} />
             <Route path="/post/:id" exact component={Post} />
             <Route path="/newpost" exact component={NewPost} />
