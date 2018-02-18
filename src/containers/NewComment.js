@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
 import CommentForm from '../forms/CommentForm'
@@ -32,10 +32,10 @@ class NewComment extends Component<Props> {
     }))
 
     return (
-      <div className="container">
-        <h2>Add a new comment</h2>
+      <Fragment>
+        <h2>Comments</h2>
         <CommentForm handleSubmit={this.handleSubmit} categories={categories} />
-      </div>
+      </Fragment>
     )
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {
   loadComments,
@@ -46,10 +46,10 @@ class CommentListContainer extends Component<Props> {
     const comments = commentIds.map((id) => allComments[id])
 
     return (
-      <div className="container">
+      <Fragment>
         {hasError && <p>Error</p>}
         {isFetching && <p>Loading...</p>}
-        {!isFetching && comments.length === 0 && <p>Empty</p>}
+        {!isFetching && comments.length === 0 && <p>No comments</p>}
         {!isFetching &&
           comments.length !== 0 && (
             <CommentList
@@ -61,7 +61,7 @@ class CommentListContainer extends Component<Props> {
               deleteComment={deleteComment}
             />
           )}
-      </div>
+      </Fragment>
     )
   }
 }

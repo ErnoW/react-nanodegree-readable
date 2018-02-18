@@ -24,7 +24,7 @@ const displayPost = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        hasError: false,
+        hasError: action.payload.entities.result === undefined, //Post has been deleted
         id: action.payload.result,
       }
     default:
