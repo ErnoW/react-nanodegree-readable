@@ -112,9 +112,6 @@ const apiDelete = (endpoint) => {
 export const callAPIMiddleware = (store: any) => (next: any) => (
   action: any,
 ): Promise<any> => {
-  console.log('store', store)
-  console.log('next', next)
-  console.log('action', action)
   const callAPI = action.callAPI
 
   if (typeof callAPI === 'undefined') {
@@ -165,22 +162,24 @@ export const callAPIMiddleware = (store: any) => (next: any) => (
     apicall = apiPost(endpoint, schema, body)
   }
 
-  return apicall
-    .then((ms) => new Promise((resolve) => setTimeout(() => resolve(ms), 1000)))
-    .then(
-      (response) =>
-        next(
-          actionWith({
-            payload: response,
-            type: successType,
-          }),
-        ),
-      (error) =>
-        next(
-          actionWith({
-            type: failureType,
-            error: error.message || 'Something bad happened',
-          }),
-        ),
-    )
+  return (
+    apicall
+      // .then((ms) => new Promise((resolve) => setTimeout(() => resolve(ms), 1000)))
+      .then(
+        (response) =>
+          next(
+            actionWith({
+              payload: response,
+              type: successType,
+            }),
+          ),
+        (error) =>
+          next(
+            actionWith({
+              type: failureType,
+              error: error.message || 'Something bad happened',
+            }),
+          ),
+      )
+  )
 }

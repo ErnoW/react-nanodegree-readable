@@ -17,7 +17,6 @@ type Props = {
 
 class NewComment extends Component<Props> {
   handleSubmit = (values) => {
-    console.log(this.props)
     return this.props.createComment({
       id: uuidv1(),
       timestamp: Date.now(),
