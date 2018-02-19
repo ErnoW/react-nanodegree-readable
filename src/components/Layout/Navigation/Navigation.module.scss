@@ -1,11 +1,42 @@
 @import 'styles/helpers/_variables.scss';
 
+$logoSize: 40px;
+$logoSizePlus: 50px;
+
+.logo {
+  height: $logoSizePlus;
+  width: $logoSizePlus;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    fill: $col-light;
+    height: $logoSize;
+    width: $logoSize;
+    vertical-align: middle;
+    border: 0;
+  }
+
+  &:hover,
+  &:focus {
+    border: 0;
+
+    svg {
+      height: $logoSizePlus;
+      width: $logoSizePlus;
+    }
+  }
+}
+
 .navigation {
   font-size: $fs-s;
   color: $col-light;
   font-weight: 600;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: $v-space 0;
 }
 

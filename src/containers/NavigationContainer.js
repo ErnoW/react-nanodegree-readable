@@ -9,10 +9,6 @@ type Props = {
 class NavigationContainer extends Component<Props> {
   render() {
     const links = [
-      {
-        name: 'Home',
-        path: '/',
-      },
       ...this.props.categories.map((category) => ({
         name: category.name,
         path: `/category/${category.path}`,
