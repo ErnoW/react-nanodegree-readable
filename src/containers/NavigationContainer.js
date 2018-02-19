@@ -24,7 +24,7 @@ class NavigationContainer extends Component<Props> {
     ]
 
     return (
-      <div className="container">
+      <div className="container container-transparent">
         <Navigation links={links} />
       </div>
     )

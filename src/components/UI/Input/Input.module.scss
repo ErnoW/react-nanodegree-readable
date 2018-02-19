@@ -1,9 +1,8 @@
-@import '../../../styles/helpers/_variables.scss';
+@import 'styles/helpers/_variables.scss';
 
 .input {
   background-color: transparent;
   line-height: $lh;
-  // margin-bottom: $v-space / 2;
   border: 0;
   border-bottom: $border-thin solid $grey30;
   transition: border $duration-medium;

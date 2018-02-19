@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './Notification.module.css'
 
 type Props = {
   type: 'error' | 'info' | 'warning' | 'success',
@@ -6,8 +7,15 @@ type Props = {
 }
 
 const Notification = (props: Props) => {
-  return props.text && <span>{props.text}</span>
+  return (
+    props.text && (
+      <span className={`${styles.notification} ${styles[props.type]}`}>
+        {props.text}
+      </span>
+    )
+  )
 }
+//      className={`${styles.button} ${type === 'submit' ? styles.submit : ''}`}
 
 Notification.defaultProps = {
   type: 'info',

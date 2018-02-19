@@ -1,0 +1,24 @@
+@import 'styles/helpers/_variables.scss';
+
+.notification {
+  font-size: $fs;
+  background-color: $grey10;
+  padding: $v-space 0;
+  display: inline-block;
+}
+
+.warning {
+  color: $col-warning;
+}
+
+.error {
+  color: $col-alert;
+}
+
+.info {
+  color: $col-info;
+}
+
+.success {
+  color: $col-success;
+}

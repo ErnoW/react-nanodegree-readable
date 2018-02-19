@@ -2,10 +2,11 @@
 
 .navigation {
   font-size: $fs-s;
+  color: $col-light;
   font-weight: 600;
   display: flex;
   justify-content: space-between;
-  padding: 20px 0;
+  margin: $v-space 0;
 }
 
 .menu {
@@ -18,6 +19,15 @@
 
     &:not(:last-child) {
       margin-right: $h-space;
+    }
+  }
+
+  a {
+    color: $col-light;
+
+    &:hover,
+    &:focus {
+      border-color: $col-light;
     }
   }
 }

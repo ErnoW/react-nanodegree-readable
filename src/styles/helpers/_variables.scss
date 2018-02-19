@@ -29,12 +29,13 @@ $cyan: #17a2b8;
 
 //-- Colors theme
 $col-primary: $blue;
-$col-secondary: $green;
+$col-secondary: $indigo;
+$col-tertiary: $cyan;
 
 $col-alert: $red;
 $col-warning: $yellow;
 $col-success: $green;
-$col-info: $cyan;
+$col-info: $col-primary;
 
 $col-light: $grey10;
 $col-dark: $grey70;
@@ -63,11 +64,15 @@ $fs-h6: 1.2 * $fs;
 $border-hairline: 1px;
 $border-thin: 2px;
 $border-thick: 3px;
-$border-radius: 4px;
+$border-radius: 8px;
+
+//Dropshadow
+$ds-light: 0 8px 20px rgba($col-dark, 0.3);
+$ds-seperator: 0 8px 20px -8px rgba($col-dark, 0.3);
 
 //== Layout
 $maxWidth: 800px;
-$gutterOutside: 20px;
+$gutterOutside: $h-space*2;
 
 //== Breakpoints
 $grid-breakpoints: (

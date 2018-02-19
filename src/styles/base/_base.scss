@@ -3,11 +3,33 @@
 // ---------------------------------------------------------------
 
 body {
-  background-color: $col-light;
+  background: linear-gradient(
+    -30deg,
+    $col-secondary,
+    $col-primary,
+    $col-tertiary
+  );
+  background-size: 500% 500%;
+  background-attachment: fixed;
+  animation: Gradient 60s ease infinite;
   color: $col-dark;
   font-size: $fs;
   line-height: $lh;
   font-family: $ff-body;
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 a,

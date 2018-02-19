@@ -5,6 +5,7 @@
   "ignoreFiles": ["src/styles/base/_normalize.scss", "**/*.css"],
   "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss"],
   "rules": {
-    color-hex-length: "long"
+    color-hex-length: "long",
+    declaration-colon-newline-after: null
   }
 }

@@ -4,9 +4,26 @@
   padding-left: $gutterOutside;
   padding-right: $gutterOutside;
   max-width: $maxWidth;
+
+  &:not(.container-transparent) {
+    box-shadow: $ds-light;
+    border-radius: $border-radius;
+    padding-top: $v-space;
+    padding-bottom: $v-space;
+    background-color: $col-light;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $col-dark;
+    }
+  }
 }
 
 .main-content {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  margin-top: $v-space;
+  margin-bottom: $v-space;
 }

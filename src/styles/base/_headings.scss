@@ -10,13 +10,27 @@ h5,
 h6 {
   font-family: $ff-headings;
   line-height: 1;
-  margin-bottom: 0.5 * $lh;
+  margin-bottom: $lh;
   margin-top: 0;
-  color: $col-dark;
+  color: $col-light;
 }
 
 h1 {
   font-size: $fs-h1;
+  position: relative;
+  padding-bottom: $v-space;
+  margin-bottom: $v-space;
+
+  &::after {
+    position: absolute;
+    content: '';
+    display: block;
+    height: $fs-h1;
+    box-shadow: $ds-seperator;
+    left: $h-space * -2;
+    right: $h-space * -2;
+    bottom: 0;
+  }
 }
 
 h2 {

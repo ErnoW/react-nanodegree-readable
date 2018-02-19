@@ -57,7 +57,8 @@ class CommentListContainer extends Component<Props> {
       <Fragment>
         {hasError && <Notification type="error" text="Error" />}
         {isFetching && <Loader />}
-        {!isFetching && comments.length === 0 && <p>No comments</p>}
+        {!isFetching &&
+          comments.length === 0 && <Notification text="No comments" />}
         {!isFetching &&
           comments.length !== 0 && (
             <CommentList
