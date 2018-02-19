@@ -6,6 +6,14 @@ at Udacity.
 
 ## Quick start
 
+### Run the server
+
+* Clone [local server](https://github.com/udacity/reactnd-project-readable-starter)
+* Open the api-server folder: `cd api-server`
+* Install all server dependencies: `npm install`
+* Start the server: `node server`
+* The server will run on `localhost:3001`
+
 ### Run the application
 
 * Clone this repo
@@ -13,13 +21,13 @@ at Udacity.
 * Start the development server with `npm start`
 * The app will run on `localhost:3000`
 
-### Run the server
+### Scripts
 
-* Clone and run the [local server](https://github.com/udacity/reactnd-project-readable-starter)
-
-## Test
-
-* To run the tests, run `npm test`
+* `npm start`: Start the development environment
+* `npm build`: Build the project
+* `npm run flow`: Check flow
+* `npm run watch-css`: Watch scss changes and build css files
+* `npm run build-css`: Build css files
 
 ## Bootstrapped
 
