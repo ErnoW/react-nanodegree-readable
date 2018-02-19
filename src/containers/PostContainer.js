@@ -3,17 +3,18 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { Redirect } from 'react-router-dom'
 import { loadPost, editPost, deletePost, votePost } from '../actions'
-import Post from '../components/Post'
+import Post from '../components/Posts/Post'
 import type { PostType } from '../types/data'
 import CommentList from './CommentListContainer'
 import NewComment from './NewComment'
+import Loader from 'components/UI/Loader'
 
 type Props = {
   match: { params: { id: string } },
-  loadPost: (id: string) => Promise<any>,
   hasError: boolean,
   isFetching: boolean,
   post: PostType,
+  loadPost: (id: string) => Promise<any>,
   votePost: (id: string, voteType: string) => Promise<any>,
   editPost: (id: string, post: { title: string, body: string }) => Promise<any>,
   deletePost: (id: string) => Promise<any>,
@@ -36,7 +37,7 @@ class PostContainer extends Component<Props> {
     return (
       <div className="container">
         {hasError && <Redirect to="/404" />}
-        {isFetching && typeof post === 'undefined' && <p>Loading...</p>}
+        {isFetching && typeof post === 'undefined' && <Loader />}
         {!hasError &&
           typeof post !== 'undefined' && (
             <Fragment>

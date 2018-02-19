@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
-import { relativeDate } from '../../utils/format'
+import { relativeDate } from '../../../utils/format'
 import Vote from '../Vote'
-import Button from '../UI/Button'
-import CommentEditForm from '../../forms/CommentEditForm'
-import type { CommentType } from '../../types/data'
+import Button from '../../UI/Button'
+import CommentEditForm from '../../../forms/CommentEditForm'
+import type { CommentType } from '../../../types/data'
 
 type Props = {
   comment: CommentType,

@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loadAllPosts, loadPosts, sortPosts, votePost } from '../actions'
-import PostList from '../components/PostList'
+import PostList from '../components/Posts/PostList'
+import Loader from 'components/UI/Loader'
+import Notification from 'components/UI/Notification'
 import type { PostType } from '../types/data'
 
 type Props = {
   match: { params: { category: string } },
-  loadPosts: (category: string) => mixed,
   hasError: boolean,
   isFetching: boolean,
   allPosts: { [string]: PostType },
   postIds: Array<string>,
   sortedBy: string,
-  sortPosts: () => mixed,
-  votePost: () => mixed,
-  loadAllPosts: () => mixed,
+  loadPosts: (category: string) => Promise<any>,
+  sortPosts: () => Promise<any>,
+  votePost: () => Promise<any>,
+  loadAllPosts: () => Promise<any>,
 }
 
 class PostListContainer extends Component<Props> {
@@ -55,8 +57,8 @@ class PostListContainer extends Component<Props> {
     return (
       <div className="container">
         <h1>{this.props.match.params.category || 'Home'}</h1>
-        {hasError && <p>Error</p>}
-        {isFetching && posts.length === 0 && <p>Loading...</p>}
+        {hasError && <Notification type="error" text="Error" />}
+        {isFetching && posts.length === 0 && <Loader />}
         {!isFetching && posts.length === 0 && <p>No posts</p>}
         {posts.length !== 0 && (
           <PostList

@@ -7,10 +7,18 @@ import {
   deleteComment,
   sortComments,
 } from '../actions'
-import CommentList from '../components/CommentList'
+import CommentList from '../components/Posts/CommentList'
+import Loader from '../components/UI/Loader'
+import Notification from '../components/UI/Notification'
 import type { CommentType } from '../types/data'
 
 type Props = {
+  match: { params: { id: string } },
+  hasError: boolean,
+  isFetching: boolean,
+  allComments: { [string]: CommentType },
+  commentIds: Array<string>,
+  sortedBy: string,
   loadComments: (id: string) => Promise<any>,
   voteComment: () => Promise<any>,
   sortComments: () => Promise<any>,
@@ -20,12 +28,6 @@ type Props = {
     id: string,
     comment: { body: string, timeStamp: number },
   ) => Promise<any>,
-  match: { params: { id: string } },
-  hasError: boolean,
-  isFetching: boolean,
-  allComments: { [string]: CommentType },
-  commentIds: Array<string>,
-  sortedBy: string,
 }
 
 class CommentListContainer extends Component<Props> {
@@ -53,8 +55,8 @@ class CommentListContainer extends Component<Props> {
 
     return (
       <Fragment>
-        {hasError && <p>Error</p>}
-        {isFetching && <p>Loading...</p>}
+        {hasError && <Notification type="error" text="Error" />}
+        {isFetching && <Loader />}
         {!isFetching && comments.length === 0 && <p>No comments</p>}
         {!isFetching &&
           comments.length !== 0 && (

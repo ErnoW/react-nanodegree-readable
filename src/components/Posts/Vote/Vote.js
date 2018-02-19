@@ -1,8 +1,8 @@
 import React from 'react'
 // $FlowFixMe Error with Create React App creating ReactComponent
-import { ReactComponent as UpVote } from '../../assets/svgs/upVote.svg'
+import { ReactComponent as UpVote } from 'assets/svgs/upVote.svg'
 // $FlowFixMe Error with Create React App creating ReactComponent
-import { ReactComponent as DownVote } from '../../assets/svgs/downVote.svg'
+import { ReactComponent as DownVote } from 'assets/svgs/downVote.svg'
 import styles from './Vote.module.css'
 
 type Props = {

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { relativeDate } from '../../utils/format'
+import { relativeDate } from 'utils/format'
 // $FlowFixMe Error with Create React App creating ReactComponent
-import { ReactComponent as SvgClock } from '../../assets/svgs/clock.svg'
+import { ReactComponent as SvgClock } from 'assets/svgs/clock.svg'
 // $FlowFixMe Error with Create React App creating ReactComponent
-import { ReactComponent as SvgComments } from '../../assets/svgs/comments.svg'
-import Vote from '../Vote'
+import { ReactComponent as SvgComments } from 'assets/svgs/comments.svg'
+import Vote from 'components/Posts/Vote'
 import styles from './PostSnippet.module.css'
-import PostMeta from '../PostMeta'
-import type { PostType } from '../../types/data'
+import PostMeta from 'components/Posts/PostMeta'
+import type { PostType } from 'types/data'
 
 type Props = {
   post: PostType,

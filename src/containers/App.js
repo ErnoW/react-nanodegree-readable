@@ -1,17 +1,15 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { loadCategories } from '../actions'
 import Navigation from './NavigationContainer'
 import PostList from './PostListContainer'
 import Post from './PostContainer'
 import NewPost from './NewPost'
-import Home from './Home'
 import NotFound from './NotFound'
 
 type Props = {
-  loadCategories: () => mixed,
+  loadCategories: () => Promise<any>,
 }
 class App extends Component<Props> {
   componentWillMount() {

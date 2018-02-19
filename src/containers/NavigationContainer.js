@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Navigation from '../components/Navigation'
+import Navigation from '../components/Layout/Navigation'
 import type { StoreType } from '../types/store'
 
 type Props = {
