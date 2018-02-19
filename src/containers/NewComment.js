@@ -12,6 +12,7 @@ type Props = {
     body: string,
     author: string,
   }) => mixed,
+  match: { params: { id: string } },
 }
 
 class NewComment extends Component<Props> {

@@ -3,17 +3,32 @@ import { relativeDate } from '../../utils/format'
 import Vote from '../Vote'
 import Button from '../UI/Button'
 import CommentEditForm from '../../forms/CommentEditForm'
+import type { CommentType } from '../../types/data'
 
-class Comment extends Component {
+type Props = {
+  comment: CommentType,
+  voteComment: (id: string, voteType: string) => Promise<any>,
+  deleteComment: (id: string) => Promise<any>,
+  editComment: (
+    id: string,
+    comment: { body: string, timeStamp: number },
+  ) => Promise<any>,
+}
+
+type State = {
+  editMode: boolean,
+}
+
+class Comment extends Component<Props, State> {
   state = {
     editMode: false,
   }
 
-  handleSubmit = (values) => {
+  handleSubmit = (values: { comment: string }) => {
     return this.props
       .editComment(this.props.comment.id, {
         body: values.comment,
-        timeStamp: Date.now,
+        timeStamp: Date.now(),
       })
       .then(() => {
         this.setState({ editMode: false })

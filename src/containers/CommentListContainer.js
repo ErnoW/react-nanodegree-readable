@@ -11,9 +11,15 @@ import CommentList from '../components/CommentList'
 import type { CommentType } from '../types/data'
 
 type Props = {
-  loadComments: (id: string) => mixed,
-  voteComment: () => mixed,
-  sortComments: () => mixed,
+  loadComments: (id: string) => Promise<any>,
+  voteComment: () => Promise<any>,
+  sortComments: () => Promise<any>,
+  voteComment: (id: string, voteType: string) => Promise<any>,
+  deleteComment: (id: string) => Promise<any>,
+  editComment: (
+    id: string,
+    comment: { body: string, timeStamp: number },
+  ) => Promise<any>,
   match: { params: { id: string } },
   hasError: boolean,
   isFetching: boolean,

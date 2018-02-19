@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PostMeta from '../PostMeta'
-import { push } from 'react-router-redux'
 // $FlowFixMe Error with Create React App creating ReactComponent
 import { ReactComponent as SvgClock } from '../../assets/svgs/clock.svg'
 // $FlowFixMe Error with Create React App creating ReactComponent
@@ -10,16 +9,22 @@ import { relativeDate } from '../../utils/format'
 import type { PostType } from '../../types/data'
 import Button from '../UI/Button'
 import PostEditForm from '../../forms/PostEditForm'
+
 type Props = {
   post: PostType,
-  votePost: (id: string, voteType: string) => mixed,
-  deletePost: (id: string) => mixed,
+  votePost: (id: string, voteType: string) => Promise<any>,
+  deletePost: (id: string) => Promise<any>,
+  editPost: (id: string, post: { title: string, body: string }) => Promise<any>,
 }
 
-class Post extends Component<Props> {
+type State = {
+  editMode: boolean,
+}
+
+class Post extends Component<Props, State> {
   state = { editMode: false }
 
-  handleSubmit = (values) => {
+  handleSubmit = (values: { title: string, body: string }) => {
     return this.props
       .editPost(this.props.post.id, {
         title: values.title,

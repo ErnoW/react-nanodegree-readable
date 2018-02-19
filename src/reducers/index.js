@@ -8,7 +8,7 @@ import displayComments from './displayComments'
 import displayPost from './displayPost'
 import postsSort from './postsSort'
 
-const reducer = combineReducers({
+const reducers = combineReducers({
   categories,
   entities,
   fetchedPosts,
@@ -19,4 +19,4 @@ const reducer = combineReducers({
   router: routerReducer,
 })
 
-export default reducer
+export default reducers

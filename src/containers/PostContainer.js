@@ -14,9 +14,10 @@ type Props = {
   hasError: boolean,
   isFetching: boolean,
   post: PostType,
-  votePost: () => Promise<any>,
-  editPost: () => Promise<any>,
-  deletePost: () => Promise<any>,
+  votePost: (id: string, voteType: string) => Promise<any>,
+  editPost: (id: string, post: { title: string, body: string }) => Promise<any>,
+  deletePost: (id: string) => Promise<any>,
+  push: (path: string) => mixed,
 }
 
 class PostContainer extends Component<Props> {
@@ -24,20 +25,13 @@ class PostContainer extends Component<Props> {
     this.props.loadPost(this.props.match.params.id)
   }
 
-  handleDelete = (id) =>
+  handleDelete = (id: string) =>
     this.props
       .deletePost(id)
       .then(() => this.props.push(`/category/${this.props.post.category}`))
 
   render() {
-    const {
-      hasError,
-      isFetching,
-      post,
-      votePost,
-      editPost,
-      deletePost,
-    } = this.props
+    const { hasError, isFetching, post, votePost, editPost } = this.props
 
     return (
       <div className="container">

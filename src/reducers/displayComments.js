@@ -6,13 +6,23 @@ import {
   COMMENT_DELETE_SUCCESS,
 } from '../actions'
 
+type State = {
+  isFetching: boolean,
+  hasError: boolean,
+  comments: Array<string>,
+}
+type Action = any // TODO: make more specific
+
 const initialState = {
   isFetching: false,
   hasError: false,
   comments: [],
 }
 
-const displayComments = (state = initialState, action) => {
+const displayComments = (
+  state: State = initialState,
+  action: Action,
+): Action => {
   switch (action.type) {
     case COMMENTS_REQUEST:
       return {

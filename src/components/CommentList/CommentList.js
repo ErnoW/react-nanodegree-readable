@@ -8,7 +8,12 @@ type Props = {
   comments: Array<CommentType>,
   sortComments: () => mixed,
   sortedBy: string,
-  voteComment: (id: string, voteType: string) => mixed,
+  voteComment: (id: string, voteType: string) => Promise<any>,
+  deleteComment: (id: string) => Promise<any>,
+  editComment: (
+    id: string,
+    comment: { body: string, timeStamp: number },
+  ) => Promise<any>,
 }
 
 const CommentList = (props: Props) => {
