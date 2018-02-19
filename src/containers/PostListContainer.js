@@ -56,7 +56,7 @@ class PostListContainer extends Component<Props> {
 
     return (
       <div className="container">
-        <h1>{this.props.match.params.category || 'Home'}</h1>
+        <h1>{this.props.match.params.category || 'Readable'}</h1>
         {hasError && <Notification type="error" text="Error" />}
         {isFetching && posts.length === 0 && <Loader />}
         {!isFetching && posts.length === 0 && <Notification text="No posts" />}
