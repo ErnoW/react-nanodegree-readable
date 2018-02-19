@@ -9,8 +9,8 @@ import Button from '../components/UI/Button'
 import Notification from '../components/Notification'
 
 type Props = {
-  errors: string,
-  touched: boolean,
+  errors: { [string]: string },
+  touched: { [string]: boolean },
   isSubmitting: boolean,
   handleReset: () => mixed,
   status: string,

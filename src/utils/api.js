@@ -109,7 +109,12 @@ const apiDelete = (endpoint) => {
 }
 
 // Middleware for api calls
-export const callAPIMiddleware = (store) => (next) => (action) => {
+export const callAPIMiddleware = (store: any) => (next: any) => (
+  action: any,
+): Promise<any> => {
+  console.log('store', store)
+  console.log('next', next)
+  console.log('action', action)
   const callAPI = action.callAPI
 
   if (typeof callAPI === 'undefined') {

@@ -18,6 +18,10 @@ declare module 'yup' {
   declare module.exports: any
 }
 
+declare module 'normalizr' {
+  declare module.exports: any
+}
+
 declare var module: {
   hot: {
     accept(path: string, callback: () => void): void,

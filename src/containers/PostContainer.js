@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import { loadPost, editPost, deletePost, votePost } from '../actions'
 import Post from '../components/Post'
 import type { PostType } from '../types/data'
