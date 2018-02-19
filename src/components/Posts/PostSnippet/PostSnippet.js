@@ -28,7 +28,7 @@ const PostSnippet = (props: Props) => {
   const { votePost } = props
 
   return (
-    <div className={styles.container}>
+    <div>
       <Link to={`/post/${id}`}>
         <h2 className={styles.heading}>{title}</h2>
       </Link>

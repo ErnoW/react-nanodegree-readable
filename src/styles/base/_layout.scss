@@ -21,6 +21,17 @@
       color: $col-dark;
     }
   }
+
+  &.container-transparent {
+    a {
+      color: $col-light;
+
+      &:hover,
+      &:focus {
+        border-color: $col-light;
+      }
+    }
+  }
 }
 
 .main-content {

@@ -41,14 +41,26 @@ class Comment extends Component<Props, State> {
     const { voteComment, deleteComment } = this.props
 
     return (
-      <div className={styles.container}>
+      <div>
         <header className={styles.header}>
           <span className={styles.writer}>{author}</span>
           <span>{relativeDate(timestamp)}</span>
         </header>
         <main>
           {this.state.editMode ? (
-            <CommentEditForm comment={body} handleSubmit={this.handleSubmit} />
+            <Fragment>
+              <CommentEditForm
+                comment={body}
+                handleSubmit={this.handleSubmit}
+              />
+              <div className={styles.buttons}>
+                <Button
+                  text="Cancel"
+                  onClick={() => this.setState({ editMode: false })}
+                  linkButton={true}
+                />
+              </div>
+            </Fragment>
           ) : (
             <Fragment>
               <div className={styles.content}>

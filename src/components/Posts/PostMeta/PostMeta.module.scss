@@ -9,7 +9,16 @@
   font-size: $fs-s;
 
   & > * {
-    flex: 0 0 auto;
+    flex: 1 1 0;
+    text-align: center;
+
+    &:first-child {
+      text-align: left;
+    }
+
+    &:last-child {
+      text-align: right;
+    }
   }
 
   & > *:not(:last-child) {

@@ -1,23 +1,5 @@
 @import 'styles/helpers/_variables.scss';
 
-.container {
-  margin-bottom: $v-space * 2;
-  padding: ($v-space / 2) ($h-space / 2);
-  border-radius: $border-radius;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: block;
-    height: 20px;
-    box-shadow: $ds-seperator;
-  }
-}
-
 .heading {
   margin: 0;
 }

@@ -70,11 +70,20 @@ class Post extends Component<Props, State> {
         </header>
 
         {this.state.editMode ? (
-          <PostEditForm
-            body={body}
-            title={title}
-            handleSubmit={this.handleSubmit}
-          />
+          <Fragment>
+            <PostEditForm
+              body={body}
+              title={title}
+              handleSubmit={this.handleSubmit}
+            />
+            <div className={styles.buttons}>
+              <Button
+                onClick={() => this.setState({ editMode: false })}
+                text="Cancel"
+                linkButton={true}
+              />
+            </div>
+          </Fragment>
         ) : (
           <Fragment>
             <p className={styles.body}>{body}</p>

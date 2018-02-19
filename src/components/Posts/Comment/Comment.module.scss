@@ -1,15 +1,5 @@
 @import 'styles/helpers/_variables.scss';
 
-.container {
-  &::after {
-    content: '';
-    display: block;
-    height: 20px;
-    box-shadow: $ds-seperator;
-    margin-bottom: $v-space;
-  }
-}
-
 .header {
   margin-bottom: $v-space / 4;
   display: flex;
@@ -36,6 +26,7 @@
 .writer {
   font-size: 1.2rem;
   font-style: italic;
+  color: $col-primary;
 }
 
 .buttons {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { loadCategories } from '../actions'
 import Navigation from './NavigationContainer'
+import Footer from 'components/Layout/Footer'
 import PostList from './PostListContainer'
 import Post from './PostContainer'
 import NewPost from './NewPost'
@@ -29,6 +30,7 @@ class App extends Component<Props> {
             <Route component={NotFound} />
           </Switch>
         </main>
+        <Footer />
       </div>
     )
   }

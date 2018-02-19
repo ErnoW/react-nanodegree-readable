@@ -21,13 +21,4 @@
       margin-right: $h-space;
     }
   }
-
-  a {
-    color: $col-light;
-
-    &:hover,
-    &:focus {
-      border-color: $col-light;
-    }
-  }
 }

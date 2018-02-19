@@ -1,4 +1,18 @@
+@import 'styles/helpers/_variables.scss';
+
 .list {
   list-style: none;
   padding: 0;
+
+  > *:not(:last-child) {
+    margin-bottom: $v-space * 2;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 20px;
+      box-shadow: $ds-seperator;
+      margin-bottom: $v-space;
+    }
+  }
 }

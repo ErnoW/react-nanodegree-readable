@@ -9,6 +9,7 @@
   transition: all $duration-fast;
   margin-right: $h-space;
   margin-bottom: $v-space;
+  outline: none;
 
   &:hover,
   &:focus {
