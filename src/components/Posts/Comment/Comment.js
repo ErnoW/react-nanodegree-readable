@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import { relativeDate } from '../../../utils/format'
-import Vote from '../Vote'
-import Button from '../../UI/Button'
-import CommentEditForm from '../../../forms/CommentEditForm'
-import type { CommentType } from '../../../types/data'
+import { relativeDate } from 'utils/format'
+import Vote from 'components/Posts/Vote'
+import Button from 'components/UI/Button'
+import CommentEditForm from 'forms/CommentEditForm'
+import type { CommentType } from 'types/data'
+import styles from './Comment.module.css'
 
 type Props = {
   comment: CommentType,
@@ -40,25 +41,39 @@ class Comment extends Component<Props, State> {
     const { voteComment, deleteComment } = this.props
 
     return (
-      <div>
-        <h4>{author}</h4>
-        <p>{relativeDate(timestamp)}</p>
-        {this.state.editMode ? (
-          <CommentEditForm comment={body} handleSubmit={this.handleSubmit} />
-        ) : (
-          <Fragment>
-            <p>{body}</p>
-            <Button
-              text="Edit"
-              onClick={() => this.setState({ editMode: true })}
-            />
-            <Button text="Delete" onClick={() => deleteComment(id)} />
-          </Fragment>
-        )}
-        <Vote
-          onVote={(voteType) => voteComment(id, voteType)}
-          count={voteScore}
-        />
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <span className={styles.writer}>{author}</span>
+          <span>{relativeDate(timestamp)}</span>
+        </header>
+        <main>
+          {this.state.editMode ? (
+            <CommentEditForm comment={body} handleSubmit={this.handleSubmit} />
+          ) : (
+            <Fragment>
+              <div className={styles.content}>
+                <Vote
+                  onVote={(voteType) => voteComment(id, voteType)}
+                  count={voteScore}
+                />
+                <p>{body}</p>
+              </div>
+
+              <div className={styles.buttons}>
+                <Button
+                  text="Edit"
+                  onClick={() => this.setState({ editMode: true })}
+                  linkButton={true}
+                />
+                <Button
+                  text="Delete"
+                  onClick={() => deleteComment(id)}
+                  linkButton={true}
+                />
+              </div>
+            </Fragment>
+          )}
+        </main>
       </div>
     )
   }

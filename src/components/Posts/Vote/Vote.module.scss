@@ -1,5 +1,11 @@
 @import 'styles/helpers/_variables.scss';
 
+.container {
+  & > * {
+    margin: 0;
+  }
+}
+
 .vote {
   path {
     transition: all $duration-fast;
@@ -18,5 +24,7 @@
 }
 
 .count {
-  margin-right: $h-space / 4;
+  display: inline-block;
+  text-align: center;
+  width: $h-space;
 }

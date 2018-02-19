@@ -10,10 +10,30 @@
   margin-right: $h-space;
   margin-bottom: $v-space;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $col-dark;
     color: $white;
     cursor: pointer;
+  }
+}
+
+.link {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin-right: $h-space / 2;
+  margin-bottom: 0;
+  border-bottom: $border-thin solid transparent;
+  text-decoration: none;
+  border-radius: 0;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    color: $col-primary;
+    cursor: pointer;
+    border-bottom: $border-thin solid $col-primary;
   }
 }
 

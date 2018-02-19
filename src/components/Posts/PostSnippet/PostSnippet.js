@@ -39,9 +39,7 @@ const PostSnippet = (props: Props) => {
           <SvgComments className="icn" />
           {commentCount}
         </span>
-        <span>
-          <Vote count={voteScore} onVote={(voteType) => votePost(voteType)} />
-        </span>
+        <Vote count={voteScore} onVote={(voteType) => votePost(voteType)} />
         <span>
           <SvgClock className="icn" />
           {relativeDate(timestamp)}

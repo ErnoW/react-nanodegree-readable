@@ -12,7 +12,7 @@ type Props = {
 
 const Vote = (props: Props) => {
   return (
-    <span>
+    <span className={styles.container}>
       <DownVote
         className={`${styles.vote} icn`}
         onClick={() => props.onVote('downVote')}

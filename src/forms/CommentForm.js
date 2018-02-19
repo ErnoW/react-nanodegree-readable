@@ -33,6 +33,7 @@ const PostForm = (props: Props) => {
         label="Comment"
         placeholder="Write your comment..."
         error={touched.comment && errors.comment && firstCap(errors.comment)}
+        rows={3}
       />
       <Button type="submit" text="Submit" disabled={isSubmitting} />
       <Button type="reset" text="Reset" onClick={handleReset} />

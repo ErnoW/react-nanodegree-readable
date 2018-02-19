@@ -1,0 +1,48 @@
+@import 'styles/helpers/_variables.scss';
+
+.container {
+  &::after {
+    content: '';
+    display: block;
+    height: 20px;
+    box-shadow: $ds-seperator;
+    margin-bottom: $v-space;
+  }
+}
+
+.header {
+  margin-bottom: $v-space / 4;
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+
+  & > *:first-child {
+    flex: 0 0 $h-space;
+    margin-right: $h-space;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.writer {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  & > *:last-child {
+    margin-right: 0 !important;
+  }
+}
