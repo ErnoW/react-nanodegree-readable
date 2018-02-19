@@ -23,7 +23,7 @@ const PostForm = (props: Props) => {
         component={TextArea}
         name="comment"
         label="Comment"
-        placeholder="Writy your comment..."
+        placeholder="Write your comment..."
         error={touched.comment && errors.comment && firstCap(errors.comment)}
       />
       <Button type="submit" text="Submit" disabled={isSubmitting} />

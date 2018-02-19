@@ -33,7 +33,7 @@ class NewComment extends Component<Props> {
 
     return (
       <Fragment>
-        <h2>Comments</h2>
+        <h2>Add a comment</h2>
         <CommentForm handleSubmit={this.handleSubmit} categories={categories} />
       </Fragment>
     )

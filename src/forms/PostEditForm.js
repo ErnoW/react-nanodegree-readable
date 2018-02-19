@@ -32,7 +32,7 @@ const PostForm = (props: Props) => {
         component={TextArea}
         name="body"
         label="Body"
-        placeholder="Writy your post..."
+        placeholder="Write your post..."
         error={touched.body && errors.body && firstCap(errors.body)}
       />
       <Button type="submit" text="Submit" disabled={isSubmitting} />
