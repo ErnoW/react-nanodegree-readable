@@ -26,6 +26,7 @@ $logoSizePlus: 50px;
     svg {
       height: $logoSizePlus;
       width: $logoSizePlus;
+      transform: rotate(-45deg);
     }
   }
 }
