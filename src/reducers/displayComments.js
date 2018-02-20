@@ -4,7 +4,7 @@ import {
   COMMENTS_SUCCESS,
   COMMENT_CREATE_SUCCESS,
   COMMENT_DELETE_SUCCESS,
-} from '../actions'
+} from 'actions'
 
 type State = {
   isFetching: boolean,

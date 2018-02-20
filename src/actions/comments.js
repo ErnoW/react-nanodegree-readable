@@ -1,5 +1,5 @@
-import { schemas } from '../utils/api'
-import type { CommentType } from '../types/data'
+import { schemas } from 'utils/api'
+import type { CommentType } from 'types/data'
 
 export const COMMENTS_REQUEST = 'COMMENTS_REQUEST'
 export const COMMENTS_SUCCESS = 'COMMENTS_SUCCESS'

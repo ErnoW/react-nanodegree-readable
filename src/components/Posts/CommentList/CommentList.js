@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './CommentList.module.css'
-import Select from '../../UI/Select'
-import type { CommentType } from '../../../types/data'
-import Comment from '../Comment'
+import Select from 'components/UI/Select'
+import type { CommentType } from 'types/data'
+import Comment from 'components/Posts/Comment'
 
 type Props = {
   comments: Array<CommentType>,

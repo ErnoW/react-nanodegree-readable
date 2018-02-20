@@ -1,4 +1,4 @@
-import { POST_REQUEST, POST_ERROR, POST_SUCCESS } from '../actions'
+import { POST_REQUEST, POST_ERROR, POST_SUCCESS } from 'actions'
 
 type State = {
   isFetching: boolean,

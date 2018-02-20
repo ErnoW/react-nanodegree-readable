@@ -1,10 +1,10 @@
 import React from 'react'
 import { withFormik, Form, Field } from 'formik'
 import Yup from 'yup'
-import { firstCap } from '../utils/format'
-import TextArea from '../components/UI/TextArea'
-import Button from '../components/UI/Button'
-import Notification from '../components/UI/Notification'
+import { firstCap } from 'utils/format'
+import TextArea from 'components/UI/TextArea'
+import Button from 'components/UI/Button'
+import Notification from 'components/UI/Notification'
 
 type Props = {
   errors: { [string]: string },

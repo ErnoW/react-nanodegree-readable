@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
-import CommentForm from '../forms/CommentForm'
-import { createComment } from '../actions/index'
+import CommentForm from 'forms/CommentForm'
+import { createComment } from 'actions/index'
 
 type Props = {
   categories: Array<{ name: string }>,

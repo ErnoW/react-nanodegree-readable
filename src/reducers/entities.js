@@ -1,5 +1,5 @@
 import merge from 'lodash/merge'
-import type { PostType, CommentType } from '../types/data'
+import type { PostType, CommentType } from 'types/data'
 
 type State = {
   posts: { [string]: PostType },

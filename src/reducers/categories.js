@@ -1,4 +1,4 @@
-import { CATEGORIES_SUCCESS } from '../actions'
+import { CATEGORIES_SUCCESS } from 'actions'
 
 type State = Array<{ name: string, path: string }>
 type Action = any // TODO: make more specific

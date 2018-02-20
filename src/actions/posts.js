@@ -1,5 +1,5 @@
-import { schemas } from '../utils/api'
-import type { PostType } from '../types/data'
+import { schemas } from 'utils/api'
+import type { PostType } from 'types/data'
 
 // Load all posts of a category
 export const POSTS_REQUEST = 'POSTS_REQUEST'

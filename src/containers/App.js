@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import { loadCategories } from '../actions'
+import { loadCategories } from 'actions'
 import Navigation from './NavigationContainer'
 import Footer from 'components/Layout/Footer'
 import PostList from './PostListContainer'

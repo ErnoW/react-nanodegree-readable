@@ -6,11 +6,11 @@ import {
   editComment,
   deleteComment,
   sortComments,
-} from '../actions'
-import CommentList from '../components/Posts/CommentList'
-import Loader from '../components/UI/Loader'
-import Notification from '../components/UI/Notification'
-import type { CommentType } from '../types/data'
+} from 'actions'
+import CommentList from 'components/Posts/CommentList'
+import Loader from 'components/UI/Loader'
+import Notification from 'components/UI/Notification'
+import type { CommentType } from 'types/data'
 
 type Props = {
   match: { params: { id: string } },

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadAllPosts, loadPosts, sortPosts, votePost } from '../actions'
-import PostList from '../components/Posts/PostList'
+import { loadAllPosts, loadPosts, sortPosts, votePost } from 'actions'
+import PostList from 'components/Posts/PostList'
 import Loader from 'components/UI/Loader'
 import Notification from 'components/UI/Notification'
-import type { PostType } from '../types/data'
+import type { PostType } from 'types/data'
 
 type Props = {
   match: { params: { category: string } },

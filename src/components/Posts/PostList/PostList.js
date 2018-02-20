@@ -1,8 +1,8 @@
 import React from 'react'
-import PostSnippet from '../PostSnippet'
+import PostSnippet from 'components/Posts/PostSnippet'
 import styles from './PostList.module.css'
-import Select from '../../UI/Select'
-import type { PostType } from '../../../types/data'
+import Select from 'components/UI/Select'
+import type { PostType } from 'types/data'
 
 type Props = {
   posts: Array<PostType>,

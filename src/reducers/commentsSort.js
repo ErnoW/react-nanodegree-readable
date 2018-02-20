@@ -1,4 +1,4 @@
-import { COMMENTS_CHANGE_SORT } from '../actions'
+import { COMMENTS_CHANGE_SORT } from 'actions'
 
 type State = string
 type Action = any // TODO: make more specific

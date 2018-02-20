@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import uuidv1 from 'uuid/v1'
-import PostForm from '../forms/PostForm'
-import { createPost } from '../actions/index'
+import PostForm from 'forms/PostForm'
+import { createPost } from 'actions/index'
 
 type Props = {
   push: (path: string) => mixed,

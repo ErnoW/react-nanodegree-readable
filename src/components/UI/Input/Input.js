@@ -1,7 +1,7 @@
 import React from 'react'
-import InputField from '../InputField'
+import InputField from 'components/UI/InputField'
 import styles from './Input.module.css'
-import type { FieldType } from '../../../types/components'
+import type { FieldType } from 'types/components'
 
 type Props = {
   name: string,

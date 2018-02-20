@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Navigation.module.css'
+// $FlowFixMe Error with Create React App creating ReactComponent
 import { ReactComponent as Logo } from 'assets/svgs/logo.svg'
 
 type Props = {
