@@ -30,7 +30,7 @@ class NewPost extends Component<Props> {
         author: values.author,
         category: values.category,
       })
-      .then(() => this.props.push(`/post/${id}`))
+      .then(() => this.props.push(`/${values.category}/${id}`))
   }
 
   render() {

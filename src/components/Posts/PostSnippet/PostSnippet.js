@@ -25,13 +25,14 @@ const PostSnippet = (props: Props) => {
     body,
     commentCount,
     voteScore,
+    category,
     timestamp,
   } = props.post
   const { votePost, deletePost } = props
 
   return (
     <div>
-      <Link to={`/post/${id}`}>
+      <Link to={`/${category}/${id}`}>
         <h2 className={styles.heading}>{title}</h2>
       </Link>
       <span className={styles.author}>By {author}</span>

@@ -11,7 +11,7 @@ class NavigationContainer extends Component<Props> {
     const links = [
       ...this.props.categories.map((category) => ({
         name: category.name,
-        path: `/category/${category.path}`,
+        path: `/${category.path}`,
       })),
       {
         name: 'New post',
