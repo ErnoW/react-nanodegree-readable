@@ -35,7 +35,7 @@ const PostSnippet = (props: Props) => {
         <h2 className={styles.heading}>{title}</h2>
       </Link>
       <span className={styles.author}>By {author}</span>
-      <p>{body}</p>
+      <p>{body.length > 200 ? `${body.slice(0, 200)}...` : body}</p>
       <PostMeta>
         <span>
           <SvgComments className="icn" />
@@ -46,10 +46,11 @@ const PostSnippet = (props: Props) => {
           <SvgClock className="icn" />
           {relativeDate(timestamp)}
         </span>
-        <div className={styles.buttons}>
-          <Button onClick={deletePost} text="Delete" linkButton={true} />
-        </div>
       </PostMeta>
+      <div className={styles.buttons}>
+        <Link to={`/post/${id}`}>Edit</Link>
+        <Button onClick={deletePost} text="Delete" linkButton={true} />
+      </div>
     </div>
   )
 }

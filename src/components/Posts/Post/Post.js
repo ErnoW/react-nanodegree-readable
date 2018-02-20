@@ -86,7 +86,7 @@ class Post extends Component<Props, State> {
           </Fragment>
         ) : (
           <Fragment>
-            <p className={styles.body}>{body}</p>
+            <p className={styles.body}>&quot;{body}&quot;</p>
             <div className={styles.buttons}>
               <Button
                 onClick={() => this.setState({ editMode: true })}

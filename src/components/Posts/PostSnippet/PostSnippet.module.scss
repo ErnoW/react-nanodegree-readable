@@ -9,3 +9,16 @@
   font-style: italic;
   color: $grey50;
 }
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  & > * {
+    margin-right: $h-space / 2;
+  }
+
+  & > *:last-child {
+    margin-right: 0 !important;
+  }
+}
