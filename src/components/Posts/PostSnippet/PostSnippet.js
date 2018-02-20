@@ -8,11 +8,13 @@ import { ReactComponent as SvgComments } from 'assets/svgs/comments.svg'
 import Vote from 'components/Posts/Vote'
 import styles from './PostSnippet.module.css'
 import PostMeta from 'components/Posts/PostMeta'
+import Button from 'components/UI/Button'
 import type { PostType } from 'types/data'
 
 type Props = {
   post: PostType,
   votePost: (voteType: string) => mixed,
+  deletePost: () => mixed,
 }
 
 const PostSnippet = (props: Props) => {
@@ -25,7 +27,7 @@ const PostSnippet = (props: Props) => {
     voteScore,
     timestamp,
   } = props.post
-  const { votePost } = props
+  const { votePost, deletePost } = props
 
   return (
     <div>
@@ -44,6 +46,9 @@ const PostSnippet = (props: Props) => {
           <SvgClock className="icn" />
           {relativeDate(timestamp)}
         </span>
+        <div className={styles.buttons}>
+          <Button onClick={deletePost} text="Delete" linkButton={true} />
+        </div>
       </PostMeta>
     </div>
   )

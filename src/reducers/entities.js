@@ -1,6 +1,8 @@
 import merge from 'lodash/merge'
 import type { PostType, CommentType } from 'types/data'
 
+import { POST_DELETE_SUCCESS } from 'actions'
+
 type State = {
   posts: { [string]: PostType },
   comments: { [string]: CommentType },
@@ -12,7 +14,9 @@ const entities = (
   action: Action,
 ): State => {
   if (action.payload && action.payload.entities) {
-    return merge({}, state, action.payload.entities) // TODO: check if merge is needed, or can i use spread operator
+    return merge({}, state, action.payload.entities)
+  } else if (action.type === POST_DELETE_SUCCESS) {
+    return merge({}, state, { posts: { [action.id]: action.payload } })
   }
   return state
 }

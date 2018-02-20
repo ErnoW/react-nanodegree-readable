@@ -36,7 +36,7 @@ class PostContainer extends Component<Props> {
 
     return (
       <div className="container">
-        {hasError && <Redirect to="/404" />}
+        {hasError || post.deleted === true ? <Redirect to="/404" /> : ''}
         {isFetching && typeof post === 'undefined' && <Loader />}
         {!hasError &&
           typeof post !== 'undefined' && (

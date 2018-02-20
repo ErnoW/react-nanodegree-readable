@@ -84,6 +84,7 @@ export const deletePost = (id: string) => ({
   callAPI: {
     types: [POST_DELETE_REQUEST, POST_DELETE_SUCCESS, POST_DELETE_ERROR],
     method: 'DELETE',
+    schema: schemas.post,
     endpoint: `posts/${id}`,
   },
 })

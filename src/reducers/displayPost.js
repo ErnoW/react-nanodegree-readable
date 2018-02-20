@@ -1,4 +1,9 @@
-import { POST_REQUEST, POST_ERROR, POST_SUCCESS } from 'actions'
+import {
+  POST_REQUEST,
+  POST_ERROR,
+  POST_SUCCESS,
+  POST_DELETE_SUCCESS,
+} from 'actions'
 
 type State = {
   isFetching: boolean,
@@ -31,7 +36,7 @@ const displayPost = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         isFetching: false,
-        hasError: action.payload.result === undefined, //Post has been deleted
+        hasError: false,
         id: action.payload.result,
       }
     default:

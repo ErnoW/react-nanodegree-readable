@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadAllPosts, loadPosts, sortPosts, votePost } from 'actions'
+import {
+  loadAllPosts,
+  loadPosts,
+  sortPosts,
+  votePost,
+  deletePost,
+} from 'actions'
 import PostList from 'components/Posts/PostList'
 import Loader from 'components/UI/Loader'
 import Notification from 'components/UI/Notification'
@@ -15,7 +21,8 @@ type Props = {
   sortedBy: string,
   loadPosts: (category: string) => Promise<any>,
   sortPosts: () => Promise<any>,
-  votePost: () => Promise<any>,
+  votePost: (id: string, voteType: string) => Promise<any>,
+  deletePost: (id: string) => Promise<any>,
   loadAllPosts: () => Promise<any>,
 }
 
@@ -51,6 +58,7 @@ class PostListContainer extends Component<Props> {
       sortedBy,
       sortPosts,
       votePost,
+      deletePost,
     } = this.props
     const posts = postIds.map((postId) => allPosts[postId])
 
@@ -66,6 +74,7 @@ class PostListContainer extends Component<Props> {
             sortPosts={sortPosts}
             sortedBy={sortedBy}
             votePost={votePost}
+            deletePost={deletePost}
           />
         )}
       </div>
@@ -86,6 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadAllPosts: () => dispatch(loadAllPosts()),
   sortPosts: (sortOrder) => dispatch(sortPosts(sortOrder)),
   votePost: (id, voteType) => dispatch(votePost(id, voteType)),
+  deletePost: (id) => dispatch(deletePost(id)),
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(PostListContainer)

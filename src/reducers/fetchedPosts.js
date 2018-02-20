@@ -1,4 +1,11 @@
-import { POSTS_REQUEST, POSTS_ERROR, POSTS_SUCCESS } from 'actions'
+import mapValues from 'lodash/mapValues'
+
+import {
+  POSTS_REQUEST,
+  POSTS_ERROR,
+  POSTS_SUCCESS,
+  POST_DELETE_SUCCESS,
+} from 'actions'
 
 type State = {
   isFetching: boolean,
@@ -36,6 +43,13 @@ const fetchedPosts = (state: State = initialState, action: Action): State => {
           ...state.posts,
           [action.category]: [...action.payload.result],
         },
+      }
+    case POST_DELETE_SUCCESS:
+      return {
+        ...state,
+        posts: mapValues(state.posts, function(postIds) {
+          return postIds.filter((post) => post !== action.id)
+        }),
       }
     default:
       return state
